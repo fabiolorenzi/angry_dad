@@ -1,5 +1,5 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const CopyPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -13,7 +13,7 @@ module.exports = {
     mode: "production",
     entry: "./src/main.js",
     output: {
-        path: path.resolve(process.cwd(), 'dist'),
+        path: path.resolve(process.cwd(), "dist"),
         filename: "./bundle.min.js"
     },
     devtool: false,
@@ -68,9 +68,9 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [
-                { from: 'public/assets', to: 'assets' },
-                { from: 'public/favicon.png', to: 'favicon.png' },
-                { from: 'public/style.css', to: 'style.css' }
+                { from: "public/assets", to: "assets" },
+                { from: "public/favicon.png", to: "favicon.png" },
+                { from: "public/style.css", to: "style.css" }
             ],
         }),
     ]

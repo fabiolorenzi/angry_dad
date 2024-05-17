@@ -8,7 +8,7 @@ module.exports = {
     devtool: "eval-source-map",
     entry: "./src/main.js",
     output: {
-        path: path.resolve(process.cwd(), 'dist'),
+        path: path.resolve(process.cwd(), "dist"),
         filename: "bundle.min.js"
     },
     module: {
