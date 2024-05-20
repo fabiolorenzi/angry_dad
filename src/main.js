@@ -1,4 +1,4 @@
-import { Game as MainGame } from "./scenes/Game";
+import { Menu } from "./scenes/Menu";
 import { AUTO, Scale, Game } from "phaser";
 
 const config = {
@@ -12,7 +12,7 @@ const config = {
         autoCenter: Scale.CENTER_BOTH
     },
     scene: [
-        MainGame
+        Menu
     ]
 };
 
