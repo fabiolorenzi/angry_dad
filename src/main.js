@@ -12,6 +12,13 @@ const config = {
         mode: Scale.FIT,
         autoCenter: Scale.CENTER_BOTH
     },
+    physics: {
+        default: "arcade",
+        arcade: {
+            gravity: {y: 300},
+            debug: false
+        }
+    },
     scene: [
         Menu,
         LevelOne

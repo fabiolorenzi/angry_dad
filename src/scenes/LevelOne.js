@@ -11,12 +11,16 @@ export class LevelOne extends Scene {
         this.load.setPath("assets");
         this.load.addFile(new WebFontFile(this.load, "Permanent Marker"));
         this.load.image("background_levelOne", "background_at/Postapocalypce1/Bright/postapocalypse1.png");
+        this.load.image("floor_levelOne", "background_at/Postapocalypce1/Bright/road.png");
+
+        this.initialTime = 90;
     }
 
     create() {
         this.add.image(512, 384, "background_levelOne");
 
-        this.initialTime = 90;
+        let floors = this.physics.add.staticGroup();
+        floors.create(900, 300, "floor_levelOne");
 
         this.add.text(55, 40, "Time:", {
             fontFamily: "Permanent Marker", fontSize: 32, color: "#ffffff",
