@@ -1,22 +1,18 @@
 import { Scene } from "phaser";
 import WebFontFile from "../tools/WebFontFile";
 
-export class Menu extends Scene
-{
-    constructor ()
-    {
+export class Menu extends Scene {
+    constructor () {
         super("Menu");
     }
 
-    preload ()
-    {
+    preload() {
         this.load.setPath("assets");
         this.load.addFile(new WebFontFile(this.load, "Permanent Marker"));
         this.load.image("background", "background_at/Postapocalypce2/Pale/postapocalypse2.png");
     }
 
-    create ()
-    {
+    create() {
         this.add.image(512, 384, "background");
 
         this.add.text(512, 100, "Angry dad", {
@@ -33,7 +29,7 @@ export class Menu extends Scene
 
         playButton.setInteractive();
         playButton.on("pointerdown", () => {
-            console.log("Hello");
+            this.scene.start("LevelOne");
         });
     }
 }
