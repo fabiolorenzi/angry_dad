@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import WebFontFile from "../tools/WebFontFile";
+import WebFontFile from "../components/WebFontFile";
 
 export class Menu extends Scene {
     constructor () {

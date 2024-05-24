@@ -1,6 +1,6 @@
 import { Scene } from "phaser";
-import WebFontFile from "../tools/WebFontFile";
-import { formatTime } from "../tools/Timer";
+import WebFontFile from "../components/WebFontFile";
+import { formatTime } from "../components/Timer";
 
 export class LevelOne extends Scene {
     constructor () {
