@@ -19,7 +19,6 @@ export class LevelOne extends Scene {
 
         this.initialTime = 90;
         this.floors = this.physics.add.staticGroup();
-        this.floor_one;
         this.player;
     }
 
@@ -53,14 +52,12 @@ export class LevelOne extends Scene {
             repeat: -1
         });
 
-        this.player = this.physics.add.sprite(280, 500, "player_idle");
+        this.player = this.physics.add.sprite(280, 650, "player_idle");
         this.player.play("player_idle_anim");
         this.player.setScale(2.5);
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
-        this.physics.add.collider(this.player, this.floors, function(player, floor) {
-            console.log("hello");
-        });
+        this.physics.add.collider(this.player, this.floors, function(player, floor) {});
 
         setInterval(() => {
             this.initialTime -= 1;
