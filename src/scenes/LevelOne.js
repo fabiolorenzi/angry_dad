@@ -20,6 +20,7 @@ export class LevelOne extends Scene {
         this.initialTime = 90;
         this.floors = this.physics.add.staticGroup();
         this.player;
+        this.cursors;
     }
 
     create() {
@@ -57,11 +58,28 @@ export class LevelOne extends Scene {
         this.player.setScale(2.5);
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+
         this.physics.add.collider(this.player, this.floors, function(player, floor) {});
 
         setInterval(() => {
             this.initialTime -= 1;
             this.timerText.setText(formatTime(this.initialTime));
         }, 1000);
+    }
+
+    update() {
+        if (this.cursors.left.isDown) {
+            this.player.setVelocityX(-160);
+        } else if (this.cursors.right.isDown) {
+            this.player.setVelocityX(160);
+        } else {
+            this.player.setVelocityX(0);
+        }
+
+        if (this.cursors.space.isDown && this.player.body.touching.down) {
+            this.player.setVelocityY(-330);
+        }
     }
 }
