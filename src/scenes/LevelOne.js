@@ -93,7 +93,6 @@ export class LevelOne extends Scene {
             this.player.setFlipX(false);
             this.player.anims.play("player_run_anim", true);
         } else {
-            this.player.setVelocityX(0);
             this.player.play("player_idle_anim", true);
         }
 
