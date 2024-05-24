@@ -23,15 +23,17 @@ export class LevelOne extends Scene {
         });
 
         this.initialTime = 90;
+        this.background;
         this.floors = this.physics.add.staticGroup();
         this.player;
         this.cursors;
     }
 
     create() {
-        this.add.image(512, 384, "background_levelOne");
+        const {width, height} = this.scale;
+        this.background = this.add.tileSprite(512, 384, width, height, "background_levelOne").setScale(1);
 
-        this.floors.create(950, 800, "floor_levelOne");
+        this.floors.create(950, 830, "floor_levelOne");
 
         this.add.text(55, 40, "Time:", {
             fontFamily: "Permanent Marker", fontSize: 32, color: "#ffffff",
@@ -66,7 +68,7 @@ export class LevelOne extends Scene {
         });
 
 
-        this.player = this.physics.add.sprite(280, 650, "player_idle");
+        this.player = this.physics.add.sprite(512, 650, "player_idle");
         this.player.setScale(2.5);
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
@@ -82,12 +84,12 @@ export class LevelOne extends Scene {
     }
 
     update() {
-        if (this.cursors.left.isDown) {
-            this.player.setVelocityX(-160);
+        if (this.cursors.left.isDown && this.background.tilePositionX > 0) {
+            this.background.tilePositionX -= 3;
             this.player.setFlipX(true);
             this.player.anims.play("player_run_anim", true);
-        } else if (this.cursors.right.isDown) {
-            this.player.setVelocityX(160);
+        } else if (this.cursors.right.isDown && this.background.tilePositionX < 2500) {
+            this.background.tilePositionX += 3;
             this.player.setFlipX(false);
             this.player.anims.play("player_run_anim", true);
         } else {
