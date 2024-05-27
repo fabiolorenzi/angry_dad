@@ -9,19 +9,7 @@ export class LevelOne extends Scene {
     }
 
     preload() {
-        this.load.setPath("assets");
-        this.load.addFile(new WebFontFile(this.load, "Permanent Marker"));
-        this.load.image("background_levelOne", "background_at/Postapocalypce1/Bright/postapocalypse1.png");
-        this.load.image("floor_levelOne", "background_at/Postapocalypce1/Bright/road_cropped.png");
-
-        this.load.spritesheet("player_idle", "simple_platformer_kit/1 Main Characters/1/Idle.png", {
-            frameWidth: 32,
-            frameHeight: 32
-        });
-        this.load.spritesheet("player_run", "simple_platformer_kit/1 Main Characters/1/Run.png", {
-            frameWidth: 32,
-            frameHeight: 32
-        });
+        this.addFiles();
 
         this.initialTime = 90;
         this.background;
@@ -69,4 +57,14 @@ export class LevelOne extends Scene {
     update() {
         this.player.move(this.cursors, this.background);
     }
+
+    addFiles() {
+        this.load.setPath("assets");
+
+        this.load.addFile(new WebFontFile(this.load, "Permanent Marker"));
+        this.load.image("background_levelOne", "background_at/Postapocalypce1/Bright/postapocalypse1.png");
+        this.load.image("floor_levelOne", "background_at/Postapocalypce1/Bright/road_cropped.png");
+        this.load.spritesheet("player_idle", "simple_platformer_kit/1 Main Characters/1/Idle.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("player_run", "simple_platformer_kit/1 Main Characters/1/Run.png", {frameWidth: 32, frameHeight: 32});
+    };
 }
