@@ -45,7 +45,7 @@ export class LevelOne extends Scene {
     }
 
     update() {
-        this.player.move(this.cursors, this.background);
+        this.player.move(this.cursors, this.background, 0, 2500);
     }
 
     addFiles() {

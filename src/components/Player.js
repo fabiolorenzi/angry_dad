@@ -32,12 +32,12 @@ class Player extends Phaser.GameObjects.Sprite {
         });
     };
 
-    move(cursors, background) {
-        if (cursors.left.isDown && background.tilePositionX > 0) {
+    move(cursors, background, min, max) {
+        if (cursors.left.isDown && background.tilePositionX > min) {
             background.tilePositionX -= 3;
             this.player.setFlipX(true);
             this.player.anims.play("player_run_anim", true);
-        } else if (cursors.right.isDown && background.tilePositionX < 2500) {
+        } else if (cursors.right.isDown && background.tilePositionX < max) {
             background.tilePositionX += 3;
             this.player.setFlipX(false);
             this.player.anims.play("player_run_anim", true);
