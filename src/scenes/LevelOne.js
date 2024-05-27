@@ -1,4 +1,5 @@
 import { Scene } from "phaser";
+import GameUI from "../components/GameUI";
 import Player from "../components/Player";
 import WebFontFile from "../components/WebFontFile";
 import { formatTime } from "../components/Timer";
@@ -16,6 +17,9 @@ export class LevelOne extends Scene {
         this.floors = this.physics.add.staticGroup();
         this.player;
         this.cursors;
+        this.timer_label;
+        this.timer_value;
+        this.life_label;
     }
 
     create() {
@@ -24,23 +28,9 @@ export class LevelOne extends Scene {
 
         this.floors.create(950, 830, "floor_levelOne");
 
-        this.add.text(55, 40, "Time:", {
-            fontFamily: "Permanent Marker", fontSize: 32, color: "#ffffff",
-            stroke: "#000000", strokeThickness: 8,
-            align: "center"
-        }).setOrigin(0.5).setDepth(100);
-        
-        this.timerText = this.add.text(145, 40, formatTime(this.initialTime), {
-            fontFamily: "Permanent Marker", fontSize: 32, color: "#ffffff",
-            stroke: "#000000", strokeThickness: 8,
-            align: "center"
-        }).setOrigin(0.5).setDepth(100);
-
-        this.add.text(50, 80, "Life:", {
-            fontFamily: "Permanent Marker", fontSize: 32, color: "#ffffff",
-            stroke: "#000000", strokeThickness: 8,
-            align: "center"
-        }).setOrigin(0.5).setDepth(100);
+        this.timer_label = new GameUI(this, 55, 40, "Text:");
+        this.timer_value = new GameUI(this, 145, 40, formatTime(this.initialTime));
+        this.life_label = new GameUI(this, 50, 80, "Life:");
 
         this.player = this.add.existing(new Player(this, 512, 650));
 
@@ -50,7 +40,7 @@ export class LevelOne extends Scene {
 
         setInterval(() => {
             this.initialTime -= 1;
-            this.timerText.setText(formatTime(this.initialTime));
+            this.timer_value.updateText(formatTime(this.initialTime));
         }, 1000);
     }
 
