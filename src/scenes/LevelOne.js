@@ -1,5 +1,6 @@
 import { Scene } from "phaser";
 import GameUI from "../components/GameUI";
+import LifeUI from "../components/LifeUI";
 import Player from "../components/Player";
 import WebFontFile from "../components/WebFontFile";
 import { formatTime } from "../components/Timer";
@@ -20,6 +21,7 @@ export class LevelOne extends Scene {
         this.timer_label;
         this.timer_value;
         this.life_label;
+        this.life_value_ui;
         this.life_value = this.physics.add.staticGroup();
     }
 
@@ -29,13 +31,12 @@ export class LevelOne extends Scene {
 
         this.floors.create(950, 830, "floor_levelOne");
 
-        this.createLifeUI();
-
         this.player = this.add.existing(new Player(this, 512, 650));
 
         this.timer_label = new GameUI(this, 55, 40, "Text:");
         this.timer_value = new GameUI(this, 145, 40, formatTime(this.initialTime));
         this.life_label = new GameUI(this, 50, 80, "Life:");
+        this.life_value_ui = new LifeUI(this, 130, 85);
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -62,11 +63,5 @@ export class LevelOne extends Scene {
         this.load.spritesheet("player_idle", "simple_platformer_kit/1 Main Characters/1/Idle.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_run", "simple_platformer_kit/1 Main Characters/1/Run.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_jump", "simple_platformer_kit/1 Main Characters/1/Jump.png", {frameWidth: 32, frameHeight: 32});
-    };
-
-    createLifeUI() {
-        for (let x = 0; x < 5; x++) {
-            this.life_value.create(130 + (40 * x), 85, "heart").setScale(0.07).refreshBody();
-        };
     };
 }

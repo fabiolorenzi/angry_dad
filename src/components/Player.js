@@ -63,14 +63,12 @@ class Player extends Phaser.GameObjects.Sprite {
     }
 
     updateLife(isPlus) {
-        let length = this.life_value.children.entries.length - 1;
         if (isPlus) {
             this.life += 1;
-            this.life_value.create(130 + (40 * length), 85, "heart").setScale(0.07).refreshBody();
         } else {
             this.life -= 1;
-            this.life_value.children.entries[length].destroy();
         };
+        this.scene.life_value_ui.updateLifeUI(isPlus, this.scene.life_value.children.entries.length - 1);
     };
 };
 
