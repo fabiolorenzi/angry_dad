@@ -33,7 +33,6 @@ export class LevelOne extends Scene {
 
         this.floors.create(950, 830, "floor_levelOne");
         this.createPlatforms();
-        this.platforms.set
 
         this.player = this.add.existing(new Player(this, 512, 650));
 
@@ -44,9 +43,9 @@ export class LevelOne extends Scene {
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.physics.add.collider(this.player.player, this.floors, function(player, floor) {});
-        this.physics.add.collider(this.player.player, this.platforms, function(player, platforms) {
-            console.log("hdf");
+        this.physics.add.collider(this.player.player, this.floors, null);
+        this.physics.add.collider(this.player.player, this.platforms, (player, platform) => {
+            console.log("touch");
         });
 
         setInterval(() => {
@@ -76,7 +75,10 @@ export class LevelOne extends Scene {
     createPlatforms() {
         createWall(this.platforms, 1200, 760, 6, true);
         createWall(this.platforms, 1500, 760, 9, true);
+        createWall(this.platforms, 1700, 560, 8, false);
         createWall(this.platforms, 1800, 760, 14, true);
+
+        console.log(this.platforms);
     };
 
     moveGroups(isPlus) {
