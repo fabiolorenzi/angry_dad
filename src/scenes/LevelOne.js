@@ -2,6 +2,7 @@ import { Scene } from "phaser";
 import GameUI from "../components/GameUI";
 import LifeUI from "../components/LifeUI";
 import Player from "../components/Player";
+import { createWall } from "../components/Builder";
 import WebFontFile from "../components/WebFontFile";
 import { formatTime } from "../components/Timer";
 
@@ -16,6 +17,7 @@ export class LevelOne extends Scene {
         this.initialTime = 90;
         this.background;
         this.floors = this.physics.add.staticGroup();
+        this.platforms = this.physics.add.group({immovable: true, allowGravity: false});
         this.player;
         this.cursors;
         this.timer_label;
@@ -30,6 +32,8 @@ export class LevelOne extends Scene {
         this.background = this.add.tileSprite(512, 384, width, height, "background_levelOne").setScale(1);
 
         this.floors.create(950, 830, "floor_levelOne");
+        this.createPlatforms();
+        this.platforms.set
 
         this.player = this.add.existing(new Player(this, 512, 650));
 
@@ -41,6 +45,9 @@ export class LevelOne extends Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.physics.add.collider(this.player.player, this.floors, function(player, floor) {});
+        this.physics.add.collider(this.player.player, this.platforms, function(player, platforms) {
+            console.log("hdf");
+        });
 
         setInterval(() => {
             this.initialTime -= 1;
@@ -59,9 +66,26 @@ export class LevelOne extends Scene {
         this.load.addFile(new WebFontFile(this.load, "Permanent Marker"));
         this.load.image("background_levelOne", "background_at/Postapocalypce1/Bright/postapocalypse1.png");
         this.load.image("floor_levelOne", "background_at/Postapocalypce1/Bright/road_cropped.png");
+        this.load.image("platform", "simple_platformer_kit/2 Locations/Tiles/Tile_10.png");
         this.heart = this.load.image("heart", "hearts/heart.png");
         this.load.spritesheet("player_idle", "simple_platformer_kit/1 Main Characters/1/Idle.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_run", "simple_platformer_kit/1 Main Characters/1/Run.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_jump", "simple_platformer_kit/1 Main Characters/1/Jump.png", {frameWidth: 32, frameHeight: 32});
+    };
+
+    createPlatforms() {
+        createWall(this.platforms, 1200, 760, 6, true);
+        createWall(this.platforms, 1500, 760, 9, true);
+        createWall(this.platforms, 1800, 760, 14, true);
+    };
+
+    moveGroups(isPlus) {
+        if (isPlus) {
+            this.background.tilePositionX += 3;
+            this.platforms.children.entries.forEach(plat => plat.x -= 3);
+        } else {
+            this.background.tilePositionX -= 3;
+            this.platforms.children.entries.forEach(plat => plat.x += 3);
+        };
     };
 }

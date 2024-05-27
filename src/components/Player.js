@@ -45,11 +45,11 @@ class Player extends Phaser.GameObjects.Sprite {
 
     move(cursors, background, min, max) {
         if (cursors.left.isDown && background.tilePositionX > min) {
-            background.tilePositionX -= 3;
+            this.scene.moveGroups(false);
             this.player.setFlipX(true);
             this.playerIsTouchingDown && this.player.anims.play("player_run_anim", true);
         } else if (cursors.right.isDown && background.tilePositionX < max) {
-            background.tilePositionX += 3;
+            this.scene.moveGroups(true);
             this.player.setFlipX(false);
             this.playerIsTouchingDown && this.player.anims.play("player_run_anim", true);
         } else {
