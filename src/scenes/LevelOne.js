@@ -40,7 +40,7 @@ export class LevelOne extends Scene {
 
         setInterval(() => {
             this.initialTime -= 1;
-            this.timer_value.updateText(formatTime(this.initialTime));
+            this.initialTime >= 0 && this.timer_value.updateText(formatTime(this.initialTime));
         }, 1000);
     }
 
