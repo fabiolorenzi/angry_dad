@@ -1,4 +1,5 @@
 import { Scene } from "phaser";
+import Player from "../components/Player";
 import WebFontFile from "../components/WebFontFile";
 import { formatTime } from "../components/Timer";
 
@@ -53,29 +54,11 @@ export class LevelOne extends Scene {
             align: "center"
         }).setOrigin(0.5).setDepth(100);
 
-        this.anims.create({
-            key: "player_idle_anim",
-            frames: this.anims.generateFrameNumbers("player_idle"),
-            frameRate: 30,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: "player_run_anim",
-            frames: this.anims.generateFrameNumbers("player_run"),
-            frameRate: 30,
-            repeat: -1
-        });
-
-
-        this.player = this.physics.add.sprite(512, 650, "player_idle");
-        this.player.setScale(2.5);
-        this.player.setBounce(0.2);
-        this.player.setCollideWorldBounds(true);
+        this.player = this.add.existing(new Player(this, 512, 650));
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.physics.add.collider(this.player, this.floors, function(player, floor) {});
+        this.physics.add.collider(this.player.player, this.floors, function(player, floor) {});
 
         setInterval(() => {
             this.initialTime -= 1;
@@ -84,20 +67,6 @@ export class LevelOne extends Scene {
     }
 
     update() {
-        if (this.cursors.left.isDown && this.background.tilePositionX > 0) {
-            this.background.tilePositionX -= 3;
-            this.player.setFlipX(true);
-            this.player.anims.play("player_run_anim", true);
-        } else if (this.cursors.right.isDown && this.background.tilePositionX < 2500) {
-            this.background.tilePositionX += 3;
-            this.player.setFlipX(false);
-            this.player.anims.play("player_run_anim", true);
-        } else {
-            this.player.play("player_idle_anim", true);
-        }
-
-        if (this.cursors.space.isDown && this.player.body.touching.down) {
-            this.player.setVelocityY(-330);
-        }
+        this.player.move(this.cursors, this.background);
     }
 }
