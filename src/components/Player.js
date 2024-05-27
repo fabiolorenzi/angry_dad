@@ -3,6 +3,7 @@ class Player extends Phaser.GameObjects.Sprite {
         super(scene, x, y);
 
         this.player;
+        this.playerIsTouchingDown;
         this.scene = scene;
         this.preload(x, y);
     }
@@ -30,23 +31,31 @@ class Player extends Phaser.GameObjects.Sprite {
             frameRate: 30,
             repeat: -1
         });
+
+        this.scene.anims.create({
+            key: "player_jump_anim",
+            frames: this.scene.anims.generateFrameNumbers("player_jump"),
+            frameRate: 1,
+            repeat: 0
+        });
     };
 
     move(cursors, background, min, max) {
         if (cursors.left.isDown && background.tilePositionX > min) {
             background.tilePositionX -= 3;
             this.player.setFlipX(true);
-            this.player.anims.play("player_run_anim", true);
+            this.playerIsTouchingDown && this.player.anims.play("player_run_anim", true);
         } else if (cursors.right.isDown && background.tilePositionX < max) {
             background.tilePositionX += 3;
             this.player.setFlipX(false);
-            this.player.anims.play("player_run_anim", true);
+            this.playerIsTouchingDown && this.player.anims.play("player_run_anim", true);
         } else {
-            this.player.play("player_idle_anim", true);
+            this.playerIsTouchingDown && this.player.play("player_idle_anim", true);
         };
 
-        if (cursors.space.isDown && this.player.body.touching.down) {
+        if (cursors.space.isDown && this.playerIsTouchingDown) {
             this.player.setVelocityY(-330);
+            this.player.anims.play("player_jump_anim", true);
         };
     }
 };

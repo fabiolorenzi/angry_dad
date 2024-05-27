@@ -45,6 +45,7 @@ export class LevelOne extends Scene {
     }
 
     update() {
+        this.player.playerIsTouchingDown = this.player.player.body.touching.down;
         this.player.move(this.cursors, this.background, 0, 2500);
     }
 
@@ -56,5 +57,6 @@ export class LevelOne extends Scene {
         this.load.image("floor_levelOne", "background_at/Postapocalypce1/Bright/road_cropped.png");
         this.load.spritesheet("player_idle", "simple_platformer_kit/1 Main Characters/1/Idle.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_run", "simple_platformer_kit/1 Main Characters/1/Run.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("player_jump", "simple_platformer_kit/1 Main Characters/1/Jump.png", {frameWidth: 32, frameHeight: 32});
     };
 }
