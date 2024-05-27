@@ -4,6 +4,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
         this.player;
         this.playerIsTouchingDown;
+        this.life;
         this.scene = scene;
         this.preload(x, y);
     }
@@ -13,6 +14,8 @@ class Player extends Phaser.GameObjects.Sprite {
         this.player.setScale(2.5);
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
+
+        this.life = 5;
 
         this.create();
     };
@@ -58,6 +61,17 @@ class Player extends Phaser.GameObjects.Sprite {
             this.player.anims.play("player_jump_anim", true);
         };
     }
+
+    updateLife(isPlus) {
+        let length = this.life_value.children.entries.length - 1;
+        if (isPlus) {
+            this.life += 1;
+            this.life_value.create(130 + (40 * length), 85, "heart").setScale(0.07).refreshBody();
+        } else {
+            this.life -= 1;
+            this.life_value.children.entries[length].destroy();
+        };
+    };
 };
 
 export default Player;

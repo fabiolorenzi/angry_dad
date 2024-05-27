@@ -20,6 +20,7 @@ export class LevelOne extends Scene {
         this.timer_label;
         this.timer_value;
         this.life_label;
+        this.life_value = this.physics.add.staticGroup();
     }
 
     create() {
@@ -28,11 +29,13 @@ export class LevelOne extends Scene {
 
         this.floors.create(950, 830, "floor_levelOne");
 
+        this.createLifeUI();
+
+        this.player = this.add.existing(new Player(this, 512, 650));
+
         this.timer_label = new GameUI(this, 55, 40, "Text:");
         this.timer_value = new GameUI(this, 145, 40, formatTime(this.initialTime));
         this.life_label = new GameUI(this, 50, 80, "Life:");
-
-        this.player = this.add.existing(new Player(this, 512, 650));
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -55,8 +58,15 @@ export class LevelOne extends Scene {
         this.load.addFile(new WebFontFile(this.load, "Permanent Marker"));
         this.load.image("background_levelOne", "background_at/Postapocalypce1/Bright/postapocalypse1.png");
         this.load.image("floor_levelOne", "background_at/Postapocalypce1/Bright/road_cropped.png");
+        this.heart = this.load.image("heart", "hearts/heart.png");
         this.load.spritesheet("player_idle", "simple_platformer_kit/1 Main Characters/1/Idle.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_run", "simple_platformer_kit/1 Main Characters/1/Run.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_jump", "simple_platformer_kit/1 Main Characters/1/Jump.png", {frameWidth: 32, frameHeight: 32});
+    };
+
+    createLifeUI() {
+        for (let x = 0; x < 5; x++) {
+            this.life_value.create(130 + (40 * x), 85, "heart").setScale(0.07).refreshBody();
+        };
     };
 }
