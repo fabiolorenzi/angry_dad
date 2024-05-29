@@ -40,7 +40,7 @@ export class LevelOne extends Scene {
         this.camera.setFollowOffset(0, 268);
         this.camera.setLerp(1, 1);
 
-        this.timer_label = new GameUI(this, 55, 40, "Text:");
+        this.timer_label = new GameUI(this, 55, 40, "Time:");
         this.timer_value = new GameUI(this, 145, 40, formatTime(this.initialTime));
         this.life_label = new GameUI(this, 50, 80, "Life:");
         this.life_value_ui = new LifeUI(this, 130, 85);
@@ -58,7 +58,7 @@ export class LevelOne extends Scene {
 
     update() {
         this.player.playerIsTouchingDown = this.player.player.body.touching.down;
-        this.player.move(this.cursors, this.background, 0, 2500);
+        this.player.move(this.cursors, this.background, 0, 20000);
     }
 
     addFiles() {
@@ -76,14 +76,51 @@ export class LevelOne extends Scene {
 
     createPlatforms() {
         createWall(this.platforms, 1200, 760, 6, true);
+        createWall(this.platforms, 1220, 660, 4, false);
         createWall(this.platforms, 1500, 760, 9, true);
+        createWall(this.platforms, 1520, 640, 4, false);
         createWall(this.platforms, 1700, 560, 8, false);
         createWall(this.platforms, 1800, 760, 14, true);
-
-        console.log(this.platforms);
+        createWall(this.platforms, 1960, 600, 2, false);
+        createWall(this.platforms, 2000, 760, 16, true);
+        createWall(this.platforms, 1660, 300, 14, false);
+        createWall(this.platforms, 2020, 460, 3, false);
+        createWall(this.platforms, 2080, 460, 15, true);
+        createWall(this.platforms, 2080, 160, 20, false);
+        createWall(this.platforms, 2560, 640, 37, true);
+        createWall(this.platforms, 2200, 300, 18, false);
+        createWall(this.platforms, 2100, 460, 18, false);
+        createWall(this.platforms, 2160, 640, 20, false);
+        createWall(this.platforms, 2340, 620, 3, true);
+        createWall(this.platforms, 2800, 760, 30, true);
+        createWall(this.platforms, 2580, 640, 3, false);
+        createWall(this.platforms, 2740, 500, 3, false);
+        createWall(this.platforms, 2580, 400, 3, false);
+        createWall(this.platforms, 2740, 250, 3, false);
+        createWall(this.platforms, 2900, 620, 35, true);
+        createWall(this.platforms, 2900, 640, 20, false);
+        createWall(this.platforms, 3460, 760, 20, true);
+        createWall(this.platforms, 3460, 260, 15, true);
+        createWall(this.platforms, 2920, 480, 2, false);
+        createWall(this.platforms, 3060, 380, 20, false);
+        createWall(this.platforms, 3140, 260, 16, false);
+        createWall(this.platforms, 2920, 260, 6, false);
+        createWall(this.platforms, 2920, 160, 16, false);
+        createWall(this.platforms, 3000, 140, 2, true);
+        createWall(this.platforms, 3460, 600, 50, false);
+        createWall(this.platforms, 3900, 580, 5, true);
+        createWall(this.platforms, 4600, 600, 40, true);
+        createWall(this.platforms, 4760, 600, 48, false);
+        createWall(this.platforms, 4620, 500, 50, false);
+        createWall(this.platforms, 5720, 760, 20, true);
+        createWall(this.platforms, 4760, 380, 48, false);
+        createWall(this.platforms, 4760, 280, 56, false);
+        createWall(this.platforms, 5720, 260, 20, true);
+        createWall(this.platforms, 5880, 660, 20, true);
     };
 
     moveGroups(isPlus) {
+        console.log(this.background.tilePositionX);
         if (isPlus) {
             this.background.tilePositionX += 3;
             this.platforms.children.entries.forEach(plat => plat.x -= 3);
