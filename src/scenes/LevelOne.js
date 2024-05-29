@@ -25,6 +25,7 @@ export class LevelOne extends Scene {
         this.life_label;
         this.life_value_ui;
         this.life_value = this.physics.add.staticGroup();
+        this.camera;
     }
 
     create() {
@@ -35,6 +36,9 @@ export class LevelOne extends Scene {
         this.createPlatforms();
 
         this.player = this.add.existing(new Player(this, 512, 650));
+        this.camera = this.cameras.main;
+        this.camera.setFollowOffset(0, 268);
+        this.camera.setLerp(1, 1);
 
         this.timer_label = new GameUI(this, 55, 40, "Text:");
         this.timer_value = new GameUI(this, 145, 40, formatTime(this.initialTime));
@@ -44,9 +48,7 @@ export class LevelOne extends Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.physics.add.collider(this.player.player, this.floors, null);
-        this.physics.add.collider(this.player.player, this.platforms, (player, platform) => {
-            console.log("touch");
-        });
+        this.physics.add.collider(this.player.player, this.platforms, null);
 
         setInterval(() => {
             this.initialTime -= 1;
