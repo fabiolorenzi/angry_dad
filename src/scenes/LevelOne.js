@@ -77,8 +77,7 @@ export class LevelOne extends Scene {
             endGame(player.scene, true);
         });
         this.physics.add.collider(this.player.player, this.traps, function(player) {
-            console.log("touched");
-            player.scene.player.life -= 1;
+            player.scene.player.updateLife();
             if (player.scene.player.life === 0) {
                 player.scene.player.isDead = true;
                 endGame(player.scene, false);
@@ -109,6 +108,7 @@ export class LevelOne extends Scene {
         this.load.spritesheet("player_idle", "simple_platformer_kit/1 Main Characters/1/Idle.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_run", "simple_platformer_kit/1 Main Characters/1/Run.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_jump", "simple_platformer_kit/1 Main Characters/1/Jump.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("player_hurt", "simple_platformer_kit/1 Main Characters/1/Hit.png", {frameWidth: 32, frameHeight: 32});
     };
 
     moveGroups(isPlus) {
