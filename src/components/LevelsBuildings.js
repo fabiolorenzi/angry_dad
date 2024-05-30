@@ -85,6 +85,11 @@ function createPlatformsLevelOne(plats) {
     createWall(plats, 11500, 760, 32, true);
 };
 
+function createTrapsLevelOne(target) {
+    target.create(1000, 760, "trap");
+};
+
 export {
-    createPlatformsLevelOne
+    createPlatformsLevelOne,
+    createTrapsLevelOne
 };

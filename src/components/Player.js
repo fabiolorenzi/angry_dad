@@ -7,6 +7,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.life;
         this.scene = scene;
         this.hasFinishedLevel;
+        this.isDead;
         this.preload(x, y);
     }
 
@@ -18,6 +19,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
         this.life = 5;
         this.hasFinishedLevel = false;
+        this.isDead = false;
 
         this.create();
     };
@@ -46,7 +48,7 @@ class Player extends Phaser.GameObjects.Sprite {
     };
 
     move(cursors, background, min, max) {
-        if (!this.hasFinishedLevel) {
+        if (!this.hasFinishedLevel && !this.isDead) {
             if (cursors.left.isDown && background.tilePositionX > min) {
                 this.player.body.velocity.x < -1 && this.scene.moveGroups(false);
                 this.player.setFlipX(true);
@@ -66,8 +68,10 @@ class Player extends Phaser.GameObjects.Sprite {
                 this.player.setVelocityY(-330);
                 this.player.anims.play("player_jump_anim", true);
             };
-        } else {
+        } else if (!this.hasFinishedLevel) {
             this.player.anims.play("player_idle_anim", true);
+        } else if (!this.isDead) {
+            console.log("dead");
         };
     }
 
