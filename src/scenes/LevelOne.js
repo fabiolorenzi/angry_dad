@@ -27,6 +27,8 @@ export class LevelOne extends Scene {
         this.life_value = this.physics.add.staticGroup();
         this.camera;
         this.pubs = this.physics.add.group({immovable: true, allowGravity: false});
+
+        this.interval;
     }
 
     create() {
@@ -51,11 +53,12 @@ export class LevelOne extends Scene {
 
         this.physics.add.collider(this.player.player, this.floors, null);
         this.physics.add.collider(this.player.player, this.platforms, null);
-        this.physics.add.collider(this.player.player, this.pubs, function(player, pub) {
-            console.log("overlap");
+        this.physics.add.collider(this.player.player, this.pubs, function(player) {
+            player.scene.player.hasFinishedLevel = true;
+            player.scene.endGame(true);
         });
 
-        setInterval(() => {
+        this.interval = setInterval(() => {
             this.initialTime -= 1;
             this.initialTime >= 0 && this.timer_value.updateText(formatTime(this.initialTime));
         }, 1000);
@@ -165,7 +168,7 @@ export class LevelOne extends Scene {
         createWall(this.platforms, 11500, 760, 32, true);
 
         // This code below is just for dev
-        const tar = 0;
+        const tar = 11200;
         this.background.tilePositionX += tar;
         this.platforms.children.entries.forEach(plat => plat.x -= tar);
         this.pubs.children.entries.forEach(b => b.x -= tar);
@@ -184,4 +187,49 @@ export class LevelOne extends Scene {
             this.pubs.children.entries.forEach(b => b.x += 3);
         };
     };
+
+    endGame(hasWon) {
+        clearInterval(this.interval);
+        this.add.text(512, 100, hasWon? "You won" : "You died", {
+            fontFamily: "Permanent Marker", fontSize: 64, color: "#ff0000",
+            stroke: "#000000", strokeThickness: 8,
+            align: "center"
+        }).setOrigin(0.5).setDepth(100);
+
+        let nextButton;
+        if (hasWon) {
+            nextButton = this.add.text(512, 300, "Next Level", {
+                fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",
+                stroke: "#000000", strokeThickness: 4,
+                align: "center"
+            }).setOrigin(0.5).setDepth(100);
+
+            nextButton.setInteractive();
+            nextButton.on("pointerdown", () => {
+                this.scene.start("LevelTwo");
+            });
+        };
+
+        let restartButton = this.add.text(512, hasWon ? 350 : 300, "Restart", {
+            fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",
+            stroke: "#000000", strokeThickness: 4,
+            align: "center"
+        }).setOrigin(0.5).setDepth(100);
+
+        let menuButton = this.add.text(512, hasWon ? 400 : 350, "Menu", {
+            fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",
+            stroke: "#000000", strokeThickness: 4,
+            align: "center"
+        }).setOrigin(0.5).setDepth(100);
+
+        restartButton.setInteractive();
+        restartButton.on("pointerdown", () => {
+            this.scene.start("LevelOne");
+        });
+
+        menuButton.setInteractive();
+        menuButton.on("pointerdown", () => {
+            this.scene.start("Menu");
+        });
+    }
 }

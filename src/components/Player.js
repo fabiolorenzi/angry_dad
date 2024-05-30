@@ -6,6 +6,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.playerIsTouchingDown;
         this.life;
         this.scene = scene;
+        this.hasFinishedLevel;
         this.preload(x, y);
     }
 
@@ -16,6 +17,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.player.setCollideWorldBounds(true);
 
         this.life = 5;
+        this.hasFinishedLevel = false;
 
         this.create();
     };
@@ -44,24 +46,28 @@ class Player extends Phaser.GameObjects.Sprite {
     };
 
     move(cursors, background, min, max) {
-        if (cursors.left.isDown && background.tilePositionX > min) {
-            this.player.body.velocity.x < -1 && this.scene.moveGroups(false);
-            this.player.setFlipX(true);
-            this.player.setVelocityX(-3);
-            this.playerIsTouchingDown && this.player.anims.play("player_run_anim", true);
-        } else if (cursors.right.isDown && background.tilePositionX <= max) {
-            this.player.body.velocity.x > 1 && this.scene.moveGroups(true);
-            this.player.setFlipX(false);
-            this.player.setVelocityX(3);
-            this.playerIsTouchingDown && this.player.anims.play("player_run_anim", true);
-        } else {
-            this.player.setVelocityX(0);
-            this.playerIsTouchingDown && this.player.play("player_idle_anim", true);
-        };
+        if (!this.hasFinishedLevel) {
+            if (cursors.left.isDown && background.tilePositionX > min) {
+                this.player.body.velocity.x < -1 && this.scene.moveGroups(false);
+                this.player.setFlipX(true);
+                this.player.setVelocityX(-3);
+                this.playerIsTouchingDown && this.player.anims.play("player_run_anim", true);
+            } else if (cursors.right.isDown && background.tilePositionX <= max) {
+                this.player.body.velocity.x > 1 && this.scene.moveGroups(true);
+                this.player.setFlipX(false);
+                this.player.setVelocityX(3);
+                this.playerIsTouchingDown && this.player.anims.play("player_run_anim", true);
+            } else {
+                this.player.setVelocityX(0);
+                this.playerIsTouchingDown && this.player.play("player_idle_anim", true);
+            };
 
-        if (cursors.space.isDown && this.playerIsTouchingDown) {
-            this.player.setVelocityY(-330);
-            this.player.anims.play("player_jump_anim", true);
+            if (cursors.space.isDown && this.playerIsTouchingDown) {
+                this.player.setVelocityY(-330);
+                this.player.anims.play("player_jump_anim", true);
+            };
+        } else {
+            this.player.anims.play("player_idle_anim", true);
         };
     }
 
