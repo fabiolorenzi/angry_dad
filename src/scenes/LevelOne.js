@@ -1,11 +1,12 @@
 import { Scene } from "phaser";
+import { removeBlocks } from "../components/Builder";
+import { endGame } from "../components/EndGame";
 import GameUI from "../components/GameUI";
+import { createPlatformsLevelOne } from "../components/LevelsBuildings";
 import LifeUI from "../components/LifeUI";
 import Player from "../components/Player";
-import { removeBlocks } from "../components/Builder";
-import { createPlatformsLevelOne } from "../components/LevelsBuildings";
-import WebFontFile from "../components/WebFontFile";
 import { formatTime } from "../components/Timer";
+import WebFontFile from "../components/WebFontFile";
 
 export class LevelOne extends Scene {
     constructor () {
@@ -65,7 +66,7 @@ export class LevelOne extends Scene {
         this.physics.add.collider(this.player.player, this.platforms, null);
         this.physics.add.collider(this.player.player, this.pubs, function(player) {
             player.scene.player.hasFinishedLevel = true;
-            player.scene.endGame(true);
+            endGame(player.scene, true);
         });
 
         this.interval = setInterval(() => {
@@ -106,49 +107,4 @@ export class LevelOne extends Scene {
             this.pubs.children.entries.forEach(b => b.x += 3);
         };
     };
-
-    endGame(hasWon) {
-        clearInterval(this.interval);
-        this.add.text(512, 100, hasWon? "You won" : "You died", {
-            fontFamily: "Permanent Marker", fontSize: 64, color: "#ff0000",
-            stroke: "#000000", strokeThickness: 8,
-            align: "center"
-        }).setOrigin(0.5).setDepth(100);
-
-        let nextButton;
-        if (hasWon) {
-            nextButton = this.add.text(512, 300, "Next Level", {
-                fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",
-                stroke: "#000000", strokeThickness: 4,
-                align: "center"
-            }).setOrigin(0.5).setDepth(100);
-
-            nextButton.setInteractive();
-            nextButton.on("pointerdown", () => {
-                this.scene.start("LevelTwo");
-            });
-        };
-
-        let restartButton = this.add.text(512, hasWon ? 350 : 300, "Restart", {
-            fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",
-            stroke: "#000000", strokeThickness: 4,
-            align: "center"
-        }).setOrigin(0.5).setDepth(100);
-
-        let menuButton = this.add.text(512, hasWon ? 400 : 350, "Menu", {
-            fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",
-            stroke: "#000000", strokeThickness: 4,
-            align: "center"
-        }).setOrigin(0.5).setDepth(100);
-
-        restartButton.setInteractive();
-        restartButton.on("pointerdown", () => {
-            this.scene.start("LevelOne");
-        });
-
-        menuButton.setInteractive();
-        menuButton.on("pointerdown", () => {
-            this.scene.start("Menu");
-        });
-    }
 }
