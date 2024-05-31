@@ -6,8 +6,10 @@ function createWall(target, x, y, n, isVertical) {
 };
 
 function removeBlocks(target, thr) {
-    if (target.children.entries[0].x < thr) {
-        target.children.entries.forEach(block => block.x < thr ? target.remove(block, true, true) : null);
+    if (target.children && target.children.entries.length < 0) {
+        if (target.children.entries[0].x < thr) {
+            target.children.entries.forEach(block => block.x < thr ? target.remove(block, true, true) : null);
+        };
     };
 };
 

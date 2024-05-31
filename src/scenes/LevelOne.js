@@ -1,10 +1,10 @@
 import { Scene } from "phaser";
 import { removeBlocks } from "../components/Builder";
-import Cannon from "../components/Cannon";
 import { endGame } from "../components/EndGame";
 import GameUI from "../components/GameUI";
 import {
     createPlatformsLevelOne,
+    createPowerUpsLevelOne,
     createCannonsLevelOne,
     createTrapsLevelOne
 } from "../components/LevelsBuildings";
@@ -21,13 +21,14 @@ export class LevelOne extends Scene {
     preload() {
         this.addFiles();
 
-        this.initialTime = 90;
+        this.time = 60;
         this.background;
         this.floors = this.physics.add.staticGroup();
         this.platforms = this.physics.add.group({immovable: true, allowGravity: false});
         this.traps = this.physics.add.group({immovable: true, allowGravity: false});
         this.cannons = this.physics.add.group({immovable: true, allowGravity: false});
         this.bullets = this.physics.add.group({immovable: true, allowGravity: false});
+        this.power_ups = this.physics.add.group({immovable: true, allowGravity: false});
         this.player;
         this.cursors;
         this.timer_label;
@@ -50,6 +51,7 @@ export class LevelOne extends Scene {
         createPlatformsLevelOne(this.platforms);
         createTrapsLevelOne(this.traps);
         createCannonsLevelOne(this);
+        createPowerUpsLevelOne(this);
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
         // This code below is just for dev---------------------------------------------------------------------------------------------------------------------------
@@ -68,7 +70,7 @@ export class LevelOne extends Scene {
         this.camera.setLerp(1, 1);
 
         this.timer_label = new GameUI(this, 55, 40, "Time:", 32, "#ffffff");
-        this.timer_value = new GameUI(this, 145, 40, formatTime(this.initialTime),  32, "#ffffff");
+        this.timer_value = new GameUI(this, 145, 40, formatTime(this.time),  32, "#ffffff");
         this.life_label = new GameUI(this, 50, 80, "Life:", 32, "#ffffff");
         this.life_value_ui = new LifeUI(this, 130, 85);
 
@@ -81,7 +83,7 @@ export class LevelOne extends Scene {
             endGame(player.scene, true);
         });
         this.physics.add.collider(this.player.player, this.traps, function(player) {
-            player.scene.player.updateLife();
+            player.scene.player.updateLife(false);
             if (player.scene.player.life === 0) {
                 player.scene.player.isDead = true;
                 endGame(player.scene, false);
@@ -89,7 +91,7 @@ export class LevelOne extends Scene {
         });
         this.physics.add.collider(this.player.player, this.cannons, null);
         this.physics.add.collider(this.player.player, this.bullets, function(player, bullet) {
-            player.scene.player.updateLife();
+            player.scene.player.updateLife(false);
             bullet.destroy();
             if (player.scene.player.life === 0) {
                 player.scene.player.isDead = true;
@@ -99,10 +101,15 @@ export class LevelOne extends Scene {
         this.physics.add.collider(this.platforms, this.bullets, function(platform, bullet) {
             bullet.destroy();
         });
+        this.physics.add.collider(this.player.player, this.power_ups, function(player, power_up) {
+            console.log(power_up);
+            power_up.name === "power_up_time" ? player.scene.time += 45 : player.scene.player.updateLife(true);
+            power_up.destroy();
+        });
 
         this.interval = setInterval(() => {
-            this.initialTime -= 1;
-            this.initialTime >= 0 && this.timer_value.updateText(formatTime(this.initialTime));
+            this.time -= 1;
+            this.time >= 0 && this.timer_value.updateText(formatTime(this.time));
         }, 1000);
     }
 
@@ -110,6 +117,7 @@ export class LevelOne extends Scene {
         this.player.playerIsTouchingDown = this.player.player.body.touching.down;
         this.player.move(this.cursors, this.background, 0, 12000);
         this.bullets.children.entries.forEach(b => b.x -= 5);
+        console.log(this.time);
     }
 
     addFiles() {
@@ -123,6 +131,8 @@ export class LevelOne extends Scene {
         this.load.image("trap", "pirate_stuff/Transperent/Icon28.png");
         this.load.image("cannon", "pirate_stuff/Transperent/Icon22.png");
         this.load.image("bullet", "pirate_stuff/Transperent/Icon42.png");
+        this.load.image("power_up_time", "cigarette.png");
+        this.load.image("power_up_life", "pirate_stuff/Transperent/Icon48.png");
         this.heart = this.load.image("heart", "hearts/heart.png");
         this.load.spritesheet("player_idle", "simple_platformer_kit/1 Main Characters/1/Idle.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_run", "simple_platformer_kit/1 Main Characters/1/Run.png", {frameWidth: 32, frameHeight: 32});
@@ -134,8 +144,8 @@ export class LevelOne extends Scene {
         removeBlocks(this.platforms, -3000);
         removeBlocks(this.traps, -3000);
         removeBlocks(this.cannons, -3000);
+        removeBlocks(this.power_ups, -3000);
 
-        //console.log(this.background.tilePositionX);
         if (isPlus) {
             this.background.tilePositionX += 3;
             this.platforms.children.entries.forEach(plat => plat.x -= 3);
@@ -143,6 +153,7 @@ export class LevelOne extends Scene {
             this.traps.children.entries.forEach(t => t.x -= 3);
             this.cannons.children.entries.forEach(c => c.x -= 3);
             this.bullets.children.entries.forEach(b => b.x -= 3);
+            this.power_ups.children.entries.forEach(p => p.x -= 3);
         } else {
             this.background.tilePositionX -= 3;
             this.platforms.children.entries.forEach(plat => plat.x += 3);
@@ -150,6 +161,7 @@ export class LevelOne extends Scene {
             this.traps.children.entries.forEach(t => t.x += 3);
             this.cannons.children.entries.forEach(c => c.x += 3);
             this.bullets.children.entries.forEach(b => b.x += 3);
+            this.power_ups.children.entries.forEach(p => p.x += 3);
         };
     };
 }

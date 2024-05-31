@@ -1,5 +1,6 @@
 import { createWall } from "./Builder";
 import Cannon from "./Cannon";
+import PowerUp from "./PowerUp";
 
 function createPlatformsLevelOne(plats) {
     createWall(plats, 1200, 760, 6, true);
@@ -86,6 +87,11 @@ function createPlatformsLevelOne(plats) {
     createWall(plats, 11500, 760, 32, true);
 };
 
+function createPowerUpsLevelOne(scene) {
+    new PowerUp(scene, 1000, 740, true);
+    new PowerUp(scene, 1100, 740, false);
+};
+
 function createCannonsLevelOne(scene) {
     new Cannon(scene, 3400, 230);
     new Cannon(scene, 6500, 110);
@@ -122,6 +128,7 @@ function createTrapsLevelOne(target) {
 
 export {
     createPlatformsLevelOne,
+    createPowerUpsLevelOne,
     createCannonsLevelOne,
     createTrapsLevelOne
 };
