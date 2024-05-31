@@ -55,12 +55,13 @@ export class LevelOne extends Scene {
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
         // This code below is just for dev---------------------------------------------------------------------------------------------------------------------------
-        const tar = 0;
+        const tar = 7500;
         this.background.tilePositionX += tar;
         this.platforms.children.entries.forEach(plat => plat.x -= tar);
         this.pubs.children.entries.forEach(b => b.x -= tar);
         this.traps.children.entries.forEach(t => t.x -= tar);
         this.cannons.children.entries.forEach(c => c.x -= tar);
+        this.power_ups.children.entries.forEach(p => p.x -= tar);
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -102,7 +103,6 @@ export class LevelOne extends Scene {
             bullet.destroy();
         });
         this.physics.add.collider(this.player.player, this.power_ups, function(player, power_up) {
-            console.log(power_up);
             power_up.name === "power_up_time" ? player.scene.time += 45 : player.scene.player.updateLife(true);
             power_up.destroy();
         });
@@ -117,7 +117,6 @@ export class LevelOne extends Scene {
         this.player.playerIsTouchingDown = this.player.player.body.touching.down;
         this.player.move(this.cursors, this.background, 0, 12000);
         this.bullets.children.entries.forEach(b => b.x -= 5);
-        console.log(this.time);
     }
 
     addFiles() {

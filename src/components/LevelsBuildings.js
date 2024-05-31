@@ -88,8 +88,16 @@ function createPlatformsLevelOne(plats) {
 };
 
 function createPowerUpsLevelOne(scene) {
-    new PowerUp(scene, 1000, 740, true);
-    new PowerUp(scene, 1100, 740, false);
+    new PowerUp(scene, 1840, 740, true);
+    new PowerUp(scene, 2960, 130, false);
+    new PowerUp(scene, 3500, 740, true);
+    new PowerUp(scene, 5320, 240, false);
+    new PowerUp(scene, 5660, 240, true);
+    new PowerUp(scene, 7700, 120, true);
+    new PowerUp(scene, 8000, 60, false);
+    new PowerUp(scene, 8050, 60, true);
+    new PowerUp(scene, 8500, 740, false);
+    new PowerUp(scene, 10800, 740, true);
 };
 
 function createCannonsLevelOne(scene) {
