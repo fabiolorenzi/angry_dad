@@ -77,10 +77,10 @@ class Player extends Phaser.GameObjects.Sprite {
                 this.player.setVelocityY(-330);
                 this.isHurted ? this.player.anims.play("player_hurt_anim", true) : this.player.anims.play("player_jump_anim", true);
             };
-        } else if (!this.hasFinishedLevel) {
+        } else if (this.hasFinishedLevel) {
             this.player.anims.play("player_idle_anim", true);
-        } else if (!this.isDead) {
-            console.log("dead");
+        } else if (this.isDead) {
+            this.player.visible = false;
         };
     }
 
@@ -92,7 +92,7 @@ class Player extends Phaser.GameObjects.Sprite {
             } else {
                 this.life -= 1;
             };
-            this.scene.life_value_ui.updateLifeUI(isPlus, this.scene.life_value.children.entries.length - 1);
+            this.life >= 0 && this.scene.life_value_ui.updateLifeUI(isPlus, this.scene.life_value.children.entries.length - 1);
             setTimeout(() => this.isHurted = false, 1000);
         };
     };

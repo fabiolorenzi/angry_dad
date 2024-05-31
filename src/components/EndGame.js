@@ -1,5 +1,9 @@
 function endGame(scene, hasWon) {
     clearInterval(scene.interval);
+    scene.timer_label.ui.visible = false;
+    scene.timer_value.ui.visible = false;
+    scene.life_label.ui.visible = false;
+
     scene.add.text(512, 100, hasWon? "You won" : "You died", {
         fontFamily: "Permanent Marker", fontSize: 64, color: "#ff0000",
         stroke: "#000000", strokeThickness: 8,
