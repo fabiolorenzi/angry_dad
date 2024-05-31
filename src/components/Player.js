@@ -7,6 +7,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.life;
         this.scene = scene;
         this.isHurted;
+        this.isAttacking;
         this.hasFinishedLevel;
         this.isDead;
         this.preload(x, y);
@@ -20,6 +21,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
         this.life = 5;
         this.isHurted = false;
+        this.isAttacking = false;
         this.hasFinishedLevel = false;
         this.isDead = false;
 
@@ -54,6 +56,13 @@ class Player extends Phaser.GameObjects.Sprite {
             frameRate: 1,
             repeat: 0
         });
+
+        this.scene.anims.create({
+            key: "player_attack_anim",
+            frames: this.scene.anims.generateFrameNumbers("player_attack"),
+            frameRate: 1,
+            repeat: -1
+        });
     };
 
     move(cursors, background, min, max) {
@@ -62,20 +71,29 @@ class Player extends Phaser.GameObjects.Sprite {
                 this.player.body.velocity.x < -1 && this.scene.moveGroups(false);
                 this.player.setFlipX(true);
                 this.player.setVelocityX(-3);
-                this.isHurted ? this.player.anims.play("player_hurt_anim", true) : this.playerIsTouchingDown && this.player.anims.play("player_run_anim", true);
+                this.isHurted ? this.player.anims.play("player_hurt_anim", true) : this.playerIsTouchingDown && !this.isAttacking && this.player.anims.play("player_run_anim", true);
             } else if (cursors.right.isDown && background.tilePositionX <= max) {
                 this.player.body.velocity.x > 1 && this.scene.moveGroups(true);
                 this.player.setFlipX(false);
                 this.player.setVelocityX(3);
-                this.isHurted ? this.player.anims.play("player_hurt_anim", true) : this.playerIsTouchingDown && this.player.anims.play("player_run_anim", true);
+                this.isHurted ? this.player.anims.play("player_hurt_anim", true) : this.playerIsTouchingDown && !this.isAttacking && this.player.anims.play("player_run_anim", true);
             } else {
                 this.player.setVelocityX(0);
-                this.isHurted ? this.player.anims.play("player_hurt_anim", true) : this.playerIsTouchingDown && this.player.play("player_idle_anim", true);
+                this.isHurted ? this.player.anims.play("player_hurt_anim", true) : this.playerIsTouchingDown && !this.isAttacking && this.player.play("player_idle_anim", true);
             };
 
             if (cursors.space.isDown && this.playerIsTouchingDown) {
                 this.player.setVelocityY(-330);
-                this.isHurted ? this.player.anims.play("player_hurt_anim", true) : this.player.anims.play("player_jump_anim", true);
+                this.isHurted ? this.player.anims.play("player_hurt_anim", true) : !this.isAttacking && this.player.anims.play("player_jump_anim", true);
+            };
+
+            if (cursors.up.isDown && !this.isHurted && !this.isAttacking) {
+                this.isAttacking = true;
+                this.isAttacking && this.player.anims.play("player_attack_anim", true);
+                setTimeout(() => {
+                    this.isAttacking = false;
+                    !this.playerIsTouchingDown && this.player.anims.play("player_idle_anim", true);
+                }, 300);
             };
         } else if (this.hasFinishedLevel) {
             this.player.anims.play("player_idle_anim", true);

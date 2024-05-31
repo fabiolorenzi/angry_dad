@@ -137,6 +137,7 @@ export class LevelOne extends Scene {
         this.load.spritesheet("player_run", "simple_platformer_kit/1 Main Characters/1/Run.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_jump", "simple_platformer_kit/1 Main Characters/1/Jump.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_hurt", "simple_platformer_kit/1 Main Characters/1/Hit.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("player_attack", "simple_platformer_kit/1 Main Characters/1/Double_Jump.png", {frameWidth: 32, frameHeight: 32});
     };
 
     moveGroups(isPlus) {
