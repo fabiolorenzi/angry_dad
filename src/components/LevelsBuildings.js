@@ -1,4 +1,5 @@
 import { createWall } from "./Builder";
+import Cannon from "./Cannon";
 
 function createPlatformsLevelOne(plats) {
     createWall(plats, 1200, 760, 6, true);
@@ -85,6 +86,13 @@ function createPlatformsLevelOne(plats) {
     createWall(plats, 11500, 760, 32, true);
 };
 
+function createCannonsLevelOne(scene) {
+    new Cannon(scene, 3400, 230);
+    new Cannon(scene, 6500, 110);
+    new Cannon(scene, 7850, 630);
+    new Cannon(scene, 11450, 745);
+};
+
 function createTrapsLevelOne(target) {
     target.create(3120, 630, "trap");
     target.create(3120, 150, "trap");
@@ -102,7 +110,7 @@ function createTrapsLevelOne(target) {
     target.create(6240, 400, "trap");
     target.create(7340, 765, "trap");
     target.create(7640, 645, "trap");
-    target.create(7840, 645, "trap");
+    target.create(7780, 645, "trap");
     target.create(9500, 765, "trap");
     target.create(9700, 765, "trap");
     target.create(10000, 765, "trap");
@@ -114,5 +122,6 @@ function createTrapsLevelOne(target) {
 
 export {
     createPlatformsLevelOne,
+    createCannonsLevelOne,
     createTrapsLevelOne
 };

@@ -1,9 +1,11 @@
 import { Scene } from "phaser";
 import { removeBlocks } from "../components/Builder";
+import Cannon from "../components/Cannon";
 import { endGame } from "../components/EndGame";
 import GameUI from "../components/GameUI";
 import {
     createPlatformsLevelOne,
+    createCannonsLevelOne,
     createTrapsLevelOne
 } from "../components/LevelsBuildings";
 import LifeUI from "../components/LifeUI";
@@ -24,6 +26,8 @@ export class LevelOne extends Scene {
         this.floors = this.physics.add.staticGroup();
         this.platforms = this.physics.add.group({immovable: true, allowGravity: false});
         this.traps = this.physics.add.group({immovable: true, allowGravity: false});
+        this.cannons = this.physics.add.group({immovable: true, allowGravity: false});
+        this.bullets = this.physics.add.group({immovable: true, allowGravity: false});
         this.player;
         this.cursors;
         this.timer_label;
@@ -45,6 +49,7 @@ export class LevelOne extends Scene {
         this.pubs.create(12300, 630, "pub");
         createPlatformsLevelOne(this.platforms);
         createTrapsLevelOne(this.traps);
+        createCannonsLevelOne(this);
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
         // This code below is just for dev---------------------------------------------------------------------------------------------------------------------------
@@ -53,6 +58,7 @@ export class LevelOne extends Scene {
         this.platforms.children.entries.forEach(plat => plat.x -= tar);
         this.pubs.children.entries.forEach(b => b.x -= tar);
         this.traps.children.entries.forEach(t => t.x -= tar);
+        this.cannons.children.entries.forEach(c => c.x -= tar);
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -81,6 +87,18 @@ export class LevelOne extends Scene {
                 endGame(player.scene, false);
             };
         });
+        this.physics.add.collider(this.player.player, this.cannons, null);
+        this.physics.add.collider(this.player.player, this.bullets, function(player, bullet) {
+            player.scene.player.updateLife();
+            bullet.destroy();
+            if (player.scene.player.life === 0) {
+                player.scene.player.isDead = true;
+                endGame(player.scene, false);
+            };
+        });
+        this.physics.add.collider(this.platforms, this.bullets, function(platform, bullet) {
+            bullet.destroy();
+        });
 
         this.interval = setInterval(() => {
             this.initialTime -= 1;
@@ -91,6 +109,7 @@ export class LevelOne extends Scene {
     update() {
         this.player.playerIsTouchingDown = this.player.player.body.touching.down;
         this.player.move(this.cursors, this.background, 0, 12000);
+        this.bullets.children.entries.forEach(b => b.x -= 5);
     }
 
     addFiles() {
@@ -103,6 +122,7 @@ export class LevelOne extends Scene {
         this.load.image("pub", "tavern.png");
         this.load.image("trap", "pirate_stuff/Transperent/Icon28.png");
         this.load.image("cannon", "pirate_stuff/Transperent/Icon22.png");
+        this.load.image("bullet", "pirate_stuff/Transperent/Icon42.png");
         this.heart = this.load.image("heart", "hearts/heart.png");
         this.load.spritesheet("player_idle", "simple_platformer_kit/1 Main Characters/1/Idle.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_run", "simple_platformer_kit/1 Main Characters/1/Run.png", {frameWidth: 32, frameHeight: 32});
@@ -113,18 +133,23 @@ export class LevelOne extends Scene {
     moveGroups(isPlus) {
         removeBlocks(this.platforms, -3000);
         removeBlocks(this.traps, -3000);
+        removeBlocks(this.cannons, -3000);
 
-        console.log(this.background.tilePositionX);
+        //console.log(this.background.tilePositionX);
         if (isPlus) {
             this.background.tilePositionX += 3;
             this.platforms.children.entries.forEach(plat => plat.x -= 3);
             this.pubs.children.entries.forEach(b => b.x -= 3);
             this.traps.children.entries.forEach(t => t.x -= 3);
+            this.cannons.children.entries.forEach(c => c.x -= 3);
+            this.bullets.children.entries.forEach(b => b.x -= 3);
         } else {
             this.background.tilePositionX -= 3;
             this.platforms.children.entries.forEach(plat => plat.x += 3);
             this.pubs.children.entries.forEach(b => b.x += 3);
             this.traps.children.entries.forEach(t => t.x += 3);
+            this.cannons.children.entries.forEach(c => c.x += 3);
+            this.bullets.children.entries.forEach(b => b.x += 3);
         };
     };
 }

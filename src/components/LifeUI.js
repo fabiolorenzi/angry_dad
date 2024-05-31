@@ -1,8 +1,6 @@
 class LifeUI {
     constructor(scene, x, y) {
         this.scene = scene;
-        this.x = x;
-        this.y = y;
         this.createLifeUI(x, y);
     };
 
