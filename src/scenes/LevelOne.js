@@ -46,26 +46,24 @@ export class LevelOne extends Scene {
         createPlatformsLevelOne(this.platforms);
         createTrapsLevelOne(this.traps);
 
-        console.log(this.traps.children.entries[0].x);
-
-        //-------------------------------
-        // This code below is just for dev
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------
+        // This code below is just for dev---------------------------------------------------------------------------------------------------------------------------
         const tar = 0;
         this.background.tilePositionX += tar;
         this.platforms.children.entries.forEach(plat => plat.x -= tar);
         this.pubs.children.entries.forEach(b => b.x -= tar);
         this.traps.children.entries.forEach(t => t.x -= tar);
-        //-------------------------------
-        //-------------------------------
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
         this.player = this.add.existing(new Player(this, 512, 650));
         this.camera = this.cameras.main;
         this.camera.setFollowOffset(0, 268);
         this.camera.setLerp(1, 1);
 
-        this.timer_label = new GameUI(this, 55, 40, "Time:");
-        this.timer_value = new GameUI(this, 145, 40, formatTime(this.initialTime));
-        this.life_label = new GameUI(this, 50, 80, "Life:");
+        this.timer_label = new GameUI(this, 55, 40, "Time:", 32, "#ffffff");
+        this.timer_value = new GameUI(this, 145, 40, formatTime(this.initialTime),  32, "#ffffff");
+        this.life_label = new GameUI(this, 50, 80, "Life:", 32, "#ffffff");
         this.life_value_ui = new LifeUI(this, 130, 85);
 
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -112,7 +110,6 @@ export class LevelOne extends Scene {
     };
 
     moveGroups(isPlus) {
-        //console.log(this.background.tilePositionX);
         removeBlocks(this.platforms, -3000);
         removeBlocks(this.traps, -3000);
         if (isPlus) {

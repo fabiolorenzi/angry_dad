@@ -1,9 +1,12 @@
 import { Scene } from "phaser";
+import GameUI from "../components/GameUI";
 import WebFontFile from "../components/WebFontFile";
 
 export class Menu extends Scene {
     constructor () {
         super("Menu");
+
+        this.title;
     }
 
     preload() {
@@ -15,11 +18,7 @@ export class Menu extends Scene {
     create() {
         this.add.image(512, 384, "background");
 
-        this.add.text(512, 100, "Angry dad", {
-            fontFamily: "Permanent Marker", fontSize: 64, color: "#ff0000",
-            stroke: "#000000", strokeThickness: 8,
-            align: "center"
-        }).setOrigin(0.5).setDepth(100);
+        this.title = new GameUI(this, 512, 100, "Angry dad", 64, "#ff0000");
         
         let playButton = this.add.text(512, 300, "Play", {
             fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",

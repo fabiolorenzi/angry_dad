@@ -1,21 +1,21 @@
 class GameUI extends Phaser.GameObjects.Text {
-    constructor(scene, x, y, text) {
-        super(scene, x, y, text);
+    constructor(scene, x, y, text, fontSize, colour) {
+        super(scene, x, y, text, fontSize, colour);
 
         this.ui;
         this.scene = scene;
-        this.create(x, y, text);
+        this.create(x, y, text, fontSize, colour);
     }
 
-    create(x, y, text) {
+    create(x, y, text, fontSize, colour) {
         this.ui = this.scene.add.text(
             x,
             y,
             text,
             {
                 fontFamily: "Permanent Marker",
-                fontSize: 32,
-                color: "#ffffff",
+                fontSize: fontSize,
+                color: colour,
                 stroke: "#000000",
                 strokeThickness: 8,
                 align: "center"
