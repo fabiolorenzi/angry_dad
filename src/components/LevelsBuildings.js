@@ -86,7 +86,30 @@ function createPlatformsLevelOne(plats) {
 };
 
 function createTrapsLevelOne(target) {
-    target.create(1000, 760, "trap");
+    target.create(3120, 630, "trap");
+    target.create(3120, 150, "trap");
+    target.create(3820, 590, "trap");
+    target.create(3860, 590, "trap");
+    target.create(3920, 590, "trap");
+    target.create(3950, 765, "trap");
+    target.create(4150, 765, "trap");
+    target.create(4950, 765, "trap");
+    target.create(5350, 765, "trap");
+    target.create(4400, 590, "trap");
+    target.create(5100, 260, "trap");
+    target.create(5400, 260, "trap");
+    target.create(5600, 260, "trap");
+    target.create(6240, 400, "trap");
+    target.create(7340, 765, "trap");
+    target.create(7640, 645, "trap");
+    target.create(7840, 645, "trap");
+    target.create(9500, 765, "trap");
+    target.create(9700, 765, "trap");
+    target.create(10000, 765, "trap");
+    target.create(10200, 765, "trap");
+    target.create(10600, 765, "trap");
+    target.create(11000, 765, "trap");
+    target.create(11300, 765, "trap");
 };
 
 export {

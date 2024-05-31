@@ -102,6 +102,7 @@ export class LevelOne extends Scene {
         this.load.image("platform", "simple_platformer_kit/2 Locations/Tiles/Tile_10.png");
         this.load.image("pub", "tavern.png");
         this.load.image("trap", "pirate_stuff/Transperent/Icon28.png");
+        this.load.image("cannon", "pirate_stuff/Transperent/Icon22.png");
         this.heart = this.load.image("heart", "hearts/heart.png");
         this.load.spritesheet("player_idle", "simple_platformer_kit/1 Main Characters/1/Idle.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_run", "simple_platformer_kit/1 Main Characters/1/Run.png", {frameWidth: 32, frameHeight: 32});
@@ -112,6 +113,8 @@ export class LevelOne extends Scene {
     moveGroups(isPlus) {
         removeBlocks(this.platforms, -3000);
         removeBlocks(this.traps, -3000);
+
+        console.log(this.background.tilePositionX);
         if (isPlus) {
             this.background.tilePositionX += 3;
             this.platforms.children.entries.forEach(plat => plat.x -= 3);
