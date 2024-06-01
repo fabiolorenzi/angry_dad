@@ -43,7 +43,8 @@ export class LevelOne extends Scene {
         this.camera;
         this.pubs = this.physics.add.group({immovable: true, allowGravity: false});
 
-        this.interval;
+        this.time_interval;
+        this.enemies_interval;
     }
 
     create() {
@@ -62,7 +63,7 @@ export class LevelOne extends Scene {
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
         // This code below is just for dev---------------------------------------------------------------------------------------------------------------------------
-        const tar = 7000;
+        const tar = 0;
         this.background.tilePositionX += tar;
         this.platforms.children.entries.forEach(plat => plat.x -= tar);
         this.pubs.children.entries.forEach(b => b.x -= tar);
@@ -130,11 +131,11 @@ export class LevelOne extends Scene {
             };
         });
 
-        this.interval = setInterval(() => {
+        this.time_interval = setInterval(() => {
             this.time -= 1;
             this.time >= 0 && this.timer_value.updateText(formatTime(this.time));
         }, 1000);
-        setInterval(() => this.direction_left = !this.direction_left, 2000);
+        this.enemies_interval = setInterval(() => this.direction_left = !this.direction_left, 2000);
     }
 
     update() {

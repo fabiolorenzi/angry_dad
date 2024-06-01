@@ -4,6 +4,12 @@ function endGame(scene, hasWon) {
     scene.timer_value.ui.visible = false;
     scene.life_label.ui.visible = false;
 
+    clearInterval(scene.time_interval);
+    clearInterval(scene.enemies_interval);
+
+    scene.enemies.clear();
+    scene.bullets.clear();
+
     scene.add.text(512, 100, hasWon? "You won" : "You died", {
         fontFamily: "Permanent Marker", fontSize: 64, color: "#ff0000",
         stroke: "#000000", strokeThickness: 8,
@@ -38,7 +44,7 @@ function endGame(scene, hasWon) {
 
     restartButton.setInteractive();
     restartButton.on("pointerdown", () => {
-        scene.scene.start();
+        scene.scene.restart();
     });
 
     menuButton.setInteractive();

@@ -109,7 +109,7 @@ function createCannonsLevelOne(scene) {
 };
 
 function createEnemiesLevelOne(scene) {
-    new Enemy(scene, 2700, 728, "enemy_one");
+    new Enemy(scene, 2650, 728, "enemy_one");
     new Enemy(scene, 3400, 335, "enemy_two");
     new Enemy(scene, 3870, 728, "enemy_one");
     new Enemy(scene, 5400, 728, "enemy_two");
