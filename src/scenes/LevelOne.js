@@ -31,7 +31,9 @@ export class LevelOne extends Scene {
         this.bullets = this.physics.add.group({immovable: true, allowGravity: false});
         this.power_ups = this.physics.add.group({immovable: true, allowGravity: false});
         this.enemies = this.physics.add.group({immovable: true, allowGravity: false});
+        this.direction_left;
         this.player;
+        this.isPlayerInvincible = false;
         this.cursors;
         this.timer_label;
         this.timer_value;
@@ -55,6 +57,8 @@ export class LevelOne extends Scene {
         createCannonsLevelOne(this);
         createPowerUpsLevelOne(this);
         createEnemiesLevelOne(this);
+
+        this.direction_left = true;
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
         // This code below is just for dev---------------------------------------------------------------------------------------------------------------------------
@@ -110,11 +114,13 @@ export class LevelOne extends Scene {
             power_up.name === "power_up_time" ? player.scene.time += 45 : player.scene.player.updateLife(true);
             power_up.destroy();
         });
-        this.physics.add.collider(this.player.player, this.enemies, function(player, enemy) {
+        this.physics.add.overlap(this.player.player, this.enemies, function(player, enemy) {
             if (player.scene.player.isAttacking) {
+                this.isPlayerInvincible = true;
+                setTimeout(() => this.isPlayerInvincible = false, 1100);
                 enemy.anims.play(`${enemy.name}_hurt_anim`);
                 setTimeout(() => enemy.destroy(), 1000);
-            } else {
+            } else if (!this.isPlayerInvincible) {
                 player.scene.player.updateLife(false);
                 if (player.scene.player.life === 0) {
                     player.scene.player.isDead = true;
@@ -127,12 +133,14 @@ export class LevelOne extends Scene {
             this.time -= 1;
             this.time >= 0 && this.timer_value.updateText(formatTime(this.time));
         }, 1000);
+        setInterval(() => this.direction_left = !this.direction_left, 2000);
     }
 
     update() {
         this.player.playerIsTouchingDown = this.player.player.body.touching.down;
         this.player.move(this.cursors, this.background, 0, 12000);
         this.bullets.children.entries.forEach(b => b.x -= 5);
+        this.enemies.children.entries.forEach(e => e.x += this.direction_left ? -3 : 3);
         if (this.time <= 0 && !this.player.isDead) {
             this.player.isDead = true;
             this.life_value.children.entries.forEach(l => l.visible = false);
@@ -172,6 +180,7 @@ export class LevelOne extends Scene {
         removeBlocks(this.traps, -3000);
         removeBlocks(this.cannons, -3000);
         removeBlocks(this.power_ups, -3000);
+        removeBlocks(this.enemies, -3000);
 
         if (isPlus) {
             this.background.tilePositionX += 3;
