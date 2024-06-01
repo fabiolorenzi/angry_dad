@@ -110,7 +110,17 @@ function createCannonsLevelOne(scene) {
 
 function createEnemiesLevelOne(scene) {
     new Enemy(scene, 2700, 728, "enemy_one");
-    new Enemy(scene, 1000, 728, "enemy_one");
+    new Enemy(scene, 3400, 335, "enemy_two");
+    new Enemy(scene, 3870, 728, "enemy_one");
+    new Enemy(scene, 5400, 728, "enemy_two");
+    new Enemy(scene, 5000, 554, "enemy_one");
+    new Enemy(scene, 5200, 335, "enemy_one");
+    new Enemy(scene, 6600, 728, "enemy_two");
+    new Enemy(scene, 6700, 495, "enemy_two");
+    new Enemy(scene, 6900, 615, "enemy_one");
+    new Enemy(scene, 7900, 728, "enemy_two");
+    new Enemy(scene, 8300, 495, "enemy_one");
+    new Enemy(scene, 8500, 274, "enemy_one");
 };
 
 function createTrapsLevelOne(target) {

@@ -62,7 +62,7 @@ export class LevelOne extends Scene {
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
         // This code below is just for dev---------------------------------------------------------------------------------------------------------------------------
-        const tar = 2000;
+        const tar = 7000;
         this.background.tilePositionX += tar;
         this.platforms.children.entries.forEach(plat => plat.x -= tar);
         this.pubs.children.entries.forEach(b => b.x -= tar);
