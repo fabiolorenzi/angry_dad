@@ -109,7 +109,8 @@ function createCannonsLevelOne(scene) {
 };
 
 function createEnemiesLevelOne(scene) {
-    new Enemy(scene, 1000, 728, "enemy_one", "one", true);
+    new Enemy(scene, 2700, 728, "enemy_one");
+    new Enemy(scene, 1000, 728, "enemy_one");
 };
 
 function createTrapsLevelOne(target) {
