@@ -1,5 +1,6 @@
 import { createWall } from "./Builder";
 import Cannon from "./Cannon";
+import Enemy from "./Enemy";
 import PowerUp from "./PowerUp";
 
 function createPlatformsLevelOne(plats) {
@@ -107,6 +108,10 @@ function createCannonsLevelOne(scene) {
     new Cannon(scene, 11450, 745);
 };
 
+function createEnemiesLevelOne(scene) {
+    new Enemy(scene, 1000, 724, "enemy_one", "one", true);
+};
+
 function createTrapsLevelOne(target) {
     target.create(3120, 630, "trap");
     target.create(3120, 150, "trap");
@@ -138,5 +143,6 @@ export {
     createPlatformsLevelOne,
     createPowerUpsLevelOne,
     createCannonsLevelOne,
+    createEnemiesLevelOne,
     createTrapsLevelOne
 };

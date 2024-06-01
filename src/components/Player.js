@@ -93,7 +93,7 @@ class Player extends Phaser.GameObjects.Sprite {
                 setTimeout(() => {
                     this.isAttacking = false;
                     !this.playerIsTouchingDown && this.player.anims.play("player_idle_anim", true);
-                }, 300);
+                }, 500);
             };
         } else if (this.hasFinishedLevel) {
             this.player.anims.play("player_idle_anim", true);

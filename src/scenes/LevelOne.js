@@ -6,6 +6,7 @@ import {
     createPlatformsLevelOne,
     createPowerUpsLevelOne,
     createCannonsLevelOne,
+    createEnemiesLevelOne,
     createTrapsLevelOne
 } from "../components/LevelsBuildings";
 import LifeUI from "../components/LifeUI";
@@ -21,7 +22,7 @@ export class LevelOne extends Scene {
     preload() {
         this.addFiles();
 
-        this.time = 5;
+        this.time = 60;
         this.background;
         this.floors = this.physics.add.staticGroup();
         this.platforms = this.physics.add.group({immovable: true, allowGravity: false});
@@ -29,6 +30,7 @@ export class LevelOne extends Scene {
         this.cannons = this.physics.add.group({immovable: true, allowGravity: false});
         this.bullets = this.physics.add.group({immovable: true, allowGravity: false});
         this.power_ups = this.physics.add.group({immovable: true, allowGravity: false});
+        this.enemies = this.physics.add.group({immovable: true, allowGravity: false});
         this.player;
         this.cursors;
         this.timer_label;
@@ -52,6 +54,7 @@ export class LevelOne extends Scene {
         createTrapsLevelOne(this.traps);
         createCannonsLevelOne(this);
         createPowerUpsLevelOne(this);
+        createEnemiesLevelOne(this);
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
         // This code below is just for dev---------------------------------------------------------------------------------------------------------------------------
@@ -62,6 +65,7 @@ export class LevelOne extends Scene {
         this.traps.children.entries.forEach(t => t.x -= tar);
         this.cannons.children.entries.forEach(c => c.x -= tar);
         this.power_ups.children.entries.forEach(p => p.x -= tar);
+        this.enemies.children.entries.forEach(e => e.x -= tar);
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -106,6 +110,18 @@ export class LevelOne extends Scene {
             power_up.name === "power_up_time" ? player.scene.time += 45 : player.scene.player.updateLife(true);
             power_up.destroy();
         });
+        this.physics.add.collider(this.player.player, this.enemies, function(player, enemy) {
+            if (player.scene.player.isAttacking) {
+                enemy.anims.play(`${enemy.name}_hurt_anim`);
+                setTimeout(() => enemy.destroy(), 1000);
+            } else {
+                player.scene.player.updateLife(false);
+                if (player.scene.player.life === 0) {
+                    player.scene.player.isDead = true;
+                    endGame(player.scene, false);
+                };
+            };
+        });
 
         this.interval = setInterval(() => {
             this.time -= 1;
@@ -143,6 +159,12 @@ export class LevelOne extends Scene {
         this.load.spritesheet("player_jump", "simple_platformer_kit/1 Main Characters/1/Jump.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_hurt", "simple_platformer_kit/1 Main Characters/1/Hit.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("player_attack", "simple_platformer_kit/1 Main Characters/1/Double_Jump.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("enemy_one_idle", "simple_platformer_kit/1 Main Characters/2/Idle.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("enemy_one_run", "simple_platformer_kit/1 Main Characters/2/Run.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("enemy_one_hurt", "simple_platformer_kit/1 Main Characters/2/Hit.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("enemy_two_idle", "simple_platformer_kit/1 Main Characters/3/Idle.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("enemy_two_run", "simple_platformer_kit/1 Main Characters/3/Run.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("enemy_two_hurt", "simple_platformer_kit/1 Main Characters/3/Hit.png", {frameWidth: 32, frameHeight: 32});
     };
 
     moveGroups(isPlus) {
@@ -159,6 +181,7 @@ export class LevelOne extends Scene {
             this.cannons.children.entries.forEach(c => c.x -= 3);
             this.bullets.children.entries.forEach(b => b.x -= 3);
             this.power_ups.children.entries.forEach(p => p.x -= 3);
+            this.enemies.children.entries.forEach(e => e.x -= 3);
         } else {
             this.background.tilePositionX -= 3;
             this.platforms.children.entries.forEach(plat => plat.x += 3);
@@ -167,6 +190,7 @@ export class LevelOne extends Scene {
             this.cannons.children.entries.forEach(c => c.x += 3);
             this.bullets.children.entries.forEach(b => b.x += 3);
             this.power_ups.children.entries.forEach(p => p.x += 3);
+            this.enemies.children.entries.forEach(e => e.x += 3);
         };
     };
 }
