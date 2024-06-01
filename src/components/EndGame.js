@@ -38,7 +38,7 @@ function endGame(scene, hasWon) {
 
     restartButton.setInteractive();
     restartButton.on("pointerdown", () => {
-        scene.scene.start("LevelOne");
+        scene.scene.start();
     });
 
     menuButton.setInteractive();
