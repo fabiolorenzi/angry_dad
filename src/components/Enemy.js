@@ -33,12 +33,13 @@ class Enemy extends Phaser.GameObjects.Sprite {
             });
 
             this.scene.anims.create({
-                key: `${this.type}_hurt_anim`,
+                key: `${this.type}_dead_enemy_hurt_anim`,
                 frames: this.scene.anims.generateFrameNumbers(`${this.type}_hurt`),
                 frameRate: 1,
                 repeat: 0
             });
         };
+        this.enemy.anims.play(`${this.type}_run_anim`);
     };
 };
 

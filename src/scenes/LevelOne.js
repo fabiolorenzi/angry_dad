@@ -117,6 +117,7 @@ export class LevelOne extends Scene {
         this.physics.add.overlap(this.player.player, this.enemies, function(player, enemy) {
             if (player.scene.player.isAttacking) {
                 this.isPlayerInvincible = true;
+                enemy.setName(enemy.name + "_dead_enemy");
                 setTimeout(() => this.isPlayerInvincible = false, 1100);
                 enemy.anims.play(`${enemy.name}_hurt_anim`);
                 setTimeout(() => enemy.destroy(), 1000);
@@ -140,7 +141,14 @@ export class LevelOne extends Scene {
         this.player.playerIsTouchingDown = this.player.player.body.touching.down;
         this.player.move(this.cursors, this.background, 0, 12000);
         this.bullets.children.entries.forEach(b => b.x -= 5);
-        this.enemies.children.entries.forEach(e => e.x += this.direction_left ? -3 : 3);
+        this.enemies.children.entries.forEach(e => {
+            if (!e.name.includes("enemy_dead")) {
+                e.x += this.direction_left ? -3 : 3;
+                e.setFlipX(this.direction_left);
+            } else {
+                e.x += this.direction_left ? -1 : 1;
+            };
+        });
         if (this.time <= 0 && !this.player.isDead) {
             this.player.isDead = true;
             this.life_value.children.entries.forEach(l => l.visible = false);
