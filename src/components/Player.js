@@ -102,8 +102,8 @@ class Player extends Phaser.GameObjects.Sprite {
         };
     }
 
-    updateLife(isPlus) {
-        if (!this.isHurted) {
+    updateLife(isPlus, timeFinished) {
+        if (!this.isHurted && !timeFinished) {
             if (isPlus && this.life < 5) {
                 this.life += 1;
                 this.scene.life_value_ui.updateLifeUI(isPlus, this.scene.life_value.children.entries.length + 1);

@@ -21,7 +21,7 @@ export class LevelOne extends Scene {
     preload() {
         this.addFiles();
 
-        this.time = 60;
+        this.time = 5;
         this.background;
         this.floors = this.physics.add.staticGroup();
         this.platforms = this.physics.add.group({immovable: true, allowGravity: false});
@@ -55,7 +55,7 @@ export class LevelOne extends Scene {
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------------
         // This code below is just for dev---------------------------------------------------------------------------------------------------------------------------
-        const tar = 7500;
+        const tar = 0;
         this.background.tilePositionX += tar;
         this.platforms.children.entries.forEach(plat => plat.x -= tar);
         this.pubs.children.entries.forEach(b => b.x -= tar);
@@ -117,6 +117,11 @@ export class LevelOne extends Scene {
         this.player.playerIsTouchingDown = this.player.player.body.touching.down;
         this.player.move(this.cursors, this.background, 0, 12000);
         this.bullets.children.entries.forEach(b => b.x -= 5);
+        if (this.time <= 0 && !this.player.isDead) {
+            this.player.isDead = true;
+            this.life_value.children.entries.forEach(l => l.visible = false);
+            endGame(this.player.scene, false);
+        };
     }
 
     addFiles() {
