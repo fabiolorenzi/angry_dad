@@ -22,7 +22,7 @@ export class LevelOne extends Scene {
     preload() {
         this.addFiles();
 
-        this.time = 60;
+        this.time = 120;
         this.background;
         this.background_sound;
         this.floors = this.physics.add.staticGroup();
@@ -133,7 +133,7 @@ export class LevelOne extends Scene {
             bullet.destroy();
         });
         this.physics.add.collider(this.player.player, this.power_ups, function(player, power_up) {
-            power_up.name === "power_up_time" ? player.scene.time += 45 : player.scene.player.updateLife(true);
+            power_up.name === "power_up_time" ? player.scene.time += 90 : player.scene.player.updateLife(true);
             power_up.name === "power_up_time" ? player.scene.player_smoke_audio.play() : player.scene.player_drink_audio.play();
             power_up.destroy();
         });
