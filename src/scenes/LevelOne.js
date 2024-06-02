@@ -170,7 +170,7 @@ export class LevelOne extends Scene {
         this.load.image("pub", "images/buildings/tavern.png");
         this.load.image("trap", "images/others/trap.png");
         this.load.image("cannon", "images/others/cannon.png");
-        this.load.image("bullet", "images/others/cannon.png");
+        this.load.image("bullet", "images/others/bullet.png");
         this.load.image("power_up_time", "images/others/cigarette.png");
         this.load.image("power_up_life", "images/others/rum.png");
         this.heart = this.load.image("heart", "images/others/heart.png");

@@ -45,6 +45,14 @@ function endGame(scene, hasWon) {
     restartButton.setInteractive();
     restartButton.on("pointerdown", () => {
         scene.background_sound.stop();
+        for(let type in scene.cache) {
+			if (type !== "game") {
+				for (let entry in scene.cache[type]) {
+					scene.cache[type].remove(entry);
+				};
+			};
+
+		};
         scene.scene.restart();
     });
 
