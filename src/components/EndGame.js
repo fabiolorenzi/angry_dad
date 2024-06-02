@@ -44,11 +44,13 @@ function endGame(scene, hasWon) {
 
     restartButton.setInteractive();
     restartButton.on("pointerdown", () => {
+        scene.background_sound.stop();
         scene.scene.restart();
     });
 
     menuButton.setInteractive();
     menuButton.on("pointerdown", () => {
+        scene.background_sound.stop();
         scene.scene.start("Menu");
     });
 };

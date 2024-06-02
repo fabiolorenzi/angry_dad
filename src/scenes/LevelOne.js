@@ -24,6 +24,7 @@ export class LevelOne extends Scene {
 
         this.time = 60;
         this.background;
+        this.background_sound;
         this.floors = this.physics.add.staticGroup();
         this.platforms = this.physics.add.group({immovable: true, allowGravity: false});
         this.traps = this.physics.add.group({immovable: true, allowGravity: false});
@@ -50,6 +51,8 @@ export class LevelOne extends Scene {
     create() {
         const {width, height} = this.scale;
         this.background = this.add.tileSprite(512, 384, width, height, "background_levelOne").setScale(1);
+        this.background_sound = this.sound.add("level_one_background");
+        this.background_sound.play();
 
         this.floors.create(950, 830, "floor_levelOne");
         this.pubs.create(12300, 630, "pub");
@@ -182,6 +185,7 @@ export class LevelOne extends Scene {
         this.load.spritesheet("enemy_two_idle", "images/characters/enemy_two/enemy_two_idle.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("enemy_two_run", "images/characters/enemy_two/enemy_two_run.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("enemy_two_hurt", "images/characters/enemy_two/enemy_two_hurt.png", {frameWidth: 32, frameHeight: 32});
+        this.load.audio("level_one_background", "audio/level_one_ambience.mp3");
     };
 
     moveGroups(isPlus) {

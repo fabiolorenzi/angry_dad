@@ -7,16 +7,20 @@ export class Menu extends Scene {
         super("Menu");
 
         this.title;
+        this.background_sound;
     }
 
     preload() {
         this.load.setPath("assets");
         this.load.addFile(new WebFontFile(this.load, "Permanent Marker"));
+        this.load.audio("background", ["audio/menu_ambience.mp3"]);
         this.load.image("background", "images/backgrounds/menu_background.png");
     }
 
     create() {
         this.add.image(512, 384, "background");
+        this.background_sound = this.sound.add("background");
+        this.background_sound.play();
 
         this.title = new GameUI(this, 512, 100, "Angry dad", 64, "#ff0000");
         
@@ -28,6 +32,7 @@ export class Menu extends Scene {
 
         playButton.setInteractive();
         playButton.on("pointerdown", () => {
+            this.background_sound.stop();
             this.scene.start("LevelOne");
         });
     }
