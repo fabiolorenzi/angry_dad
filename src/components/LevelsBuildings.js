@@ -259,30 +259,31 @@ function createEnemiesLevelTwo(scene) {
 };
 
 function createTrapsLevelTwo(target) {
-    // target.create(3120, 630, "trap");
-    // target.create(3120, 150, "trap");
-    // target.create(3820, 590, "trap");
-    // target.create(3860, 590, "trap");
-    // target.create(3920, 590, "trap");
-    // target.create(3950, 765, "trap");
-    // target.create(4150, 765, "trap");
-    // target.create(4950, 765, "trap");
-    // target.create(5350, 765, "trap");
-    // target.create(4400, 590, "trap");
-    // target.create(5100, 260, "trap");
-    // target.create(5400, 260, "trap");
-    // target.create(5600, 260, "trap");
-    // target.create(6240, 400, "trap");
-    // target.create(7340, 765, "trap");
-    // target.create(7640, 645, "trap");
-    // target.create(7780, 645, "trap");
-    // target.create(9500, 765, "trap");
-    // target.create(9700, 765, "trap");
-    // target.create(10000, 765, "trap");
-    // target.create(10200, 765, "trap");
-    // target.create(10600, 765, "trap");
-    // target.create(11000, 765, "trap");
-    // target.create(11300, 765, "trap");
+    target.create(1500, 760, "trap");
+    target.create(1700, 760, "trap");
+    target.create(2000, 760, "trap");
+    target.create(4000, 460, "trap");
+    target.create(4300, 760, "trap");
+    target.create(4350, 760, "trap");
+    target.create(4650, 460, "trap");
+    target.create(4800, 460, "trap");
+    target.create(5100, 760, "trap");
+    target.create(5400, 760, "trap");
+    target.create(5600, 760, "trap");
+    target.create(5800, 760, "trap");
+    target.create(6000, 760, "trap");
+    target.create(6100, 760, "trap");
+    target.create(6300, 760, "trap");
+    target.create(6600, 580, "trap");
+    target.create(7200, 760, "trap");
+    target.create(8370, 760, "trap");
+    target.create(8410, 760, "trap");
+    target.create(8450, 760, "trap");
+    target.create(8490, 760, "trap");
+    target.create(10100, 760, "trap");
+    target.create(10300, 760, "trap");
+    target.create(10400, 760, "trap");
+    target.create(10700, 760, "trap");
 };
 
 export {

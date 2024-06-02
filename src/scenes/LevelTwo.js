@@ -76,7 +76,7 @@ export class LevelTwo extends Scene {
 
         this.direction_left = true;
 
-        devHelper(this, 0);
+        devHelper(this, 9500);
 
         this.player = this.add.existing(new Player(this, 512, 650));
         this.camera = this.cameras.main;
