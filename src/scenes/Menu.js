@@ -24,16 +24,28 @@ export class Menu extends Scene {
 
         this.title = new GameUI(this, 512, 100, "Angry dad", 64, "#ff0000");
         
-        let playButton = this.add.text(512, 300, "Play", {
+        let playLevelOneButton = this.add.text(512, 300, "Play Level One", {
             fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",
             stroke: "#000000", strokeThickness: 4,
             align: "center"
         }).setOrigin(0.5).setDepth(100);
 
-        playButton.setInteractive();
-        playButton.on("pointerdown", () => {
+        let playLevelTwoButton = this.add.text(512, 350, "Play Level Two", {
+            fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",
+            stroke: "#000000", strokeThickness: 4,
+            align: "center"
+        }).setOrigin(0.5).setDepth(100);
+
+        playLevelOneButton.setInteractive();
+        playLevelOneButton.on("pointerdown", () => {
             this.background_sound.stop();
             this.scene.start("LevelOne");
+        });
+
+        playLevelTwoButton.setInteractive();
+        playLevelTwoButton.on("pointerdown", () => {
+            this.background_sound.stop();
+            this.scene.start("LevelTwo");
         });
     }
 }

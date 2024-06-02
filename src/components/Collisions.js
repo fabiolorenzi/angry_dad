@@ -1,3 +1,5 @@
+import { endGame } from "./EndGame";
+
 function createCollisions(scene) {
     scene.physics.add.collider(scene.player.player, scene.floors, null);
     scene.physics.add.collider(scene.player.player, scene.platforms, null);
@@ -42,7 +44,7 @@ function createCollisions(scene) {
             }, 1000);
         } else if (!scene.isPlayerInvincible) {
             player.scene.player.updateLife(false);
-            player.scene.player_hurt_audio.play();
+            !player.scene.player.isHurted && player.scene.player_hurt_audio.play();
             if (player.scene.player.life === 0) {
                 player.scene.player.isDead = true;
                 player.scene.player_death_audio.play();
