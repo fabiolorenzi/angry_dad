@@ -27,7 +27,7 @@ function createCollisions(scene, level) {
     scene.physics.add.collider(scene.platforms, scene.bullets, function(platform, bullet) {
         bullet.destroy();
     });
-    scene.physics.add.collider(scene.player.player, scene.power_ups, function(player, power_up) {
+    scene.physics.add.overlap(scene.player.player, scene.power_ups, function(player, power_up) {
         power_up.name === "power_up_time" ? player.scene.time += 90 : player.scene.player.updateLife(true);
         power_up.name === "power_up_time" ? player.scene.player_smoke_audio.play() : player.scene.player_drink_audio.play();
         power_up.destroy();
