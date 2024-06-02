@@ -1,4 +1,4 @@
-function endGame(scene, hasWon) {
+function endGame(scene, hasWon, level = "") {
     clearInterval(scene.interval);
     scene.timer_label.ui.visible = false;
     scene.timer_value.ui.visible = false;
@@ -28,7 +28,7 @@ function endGame(scene, hasWon) {
 
         nextButton.setInteractive();
         nextButton.on("pointerdown", () => {
-            scene.scene.start("LevelTwo");
+            scene.scene.start(level === "LevelOne" ? "LevelTwo" : "LevelOne");
         });
     };
 

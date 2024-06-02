@@ -92,7 +92,7 @@ export class LevelOne extends Scene {
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        createCollisions(this);
+        createCollisions(this, "LevelOne");
 
         this.time_interval = setInterval(() => {
             this.time -= 1;
