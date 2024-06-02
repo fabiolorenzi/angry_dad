@@ -25,7 +25,7 @@ export class LevelOne extends Scene {
     preload() {
         addFiles(this);
 
-        this.time = 120;
+        this.time = 180;
         this.background;
         this.background_sound;
         this.floors = this.physics.add.staticGroup();
