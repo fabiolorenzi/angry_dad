@@ -238,10 +238,9 @@ function createPowerUpsLevelTwo(scene) {
 };
 
 function createCannonsLevelTwo(scene) {
-    // new Cannon(scene, 3400, 230);
-    // new Cannon(scene, 6500, 110);
-    // new Cannon(scene, 7850, 630);
-    // new Cannon(scene, 11450, 745);
+    new Cannon(scene, 3750, 590);
+    new Cannon(scene, 7700, 750);
+    new Cannon(scene, 11650, 750);
 };
 
 function createEnemiesLevelTwo(scene) {
