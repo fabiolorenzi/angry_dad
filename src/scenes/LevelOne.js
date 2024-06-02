@@ -1,5 +1,6 @@
 import { Scene } from "phaser";
 import { removeBlocks } from "../components/Builder";
+import { createCollisions } from "../components/Collisions";
 import { endGame } from "../components/EndGame";
 import GameUI from "../components/GameUI";
 import {
@@ -98,57 +99,7 @@ export class LevelOne extends Scene {
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.physics.add.collider(this.player.player, this.floors, null);
-        this.physics.add.collider(this.player.player, this.platforms, null);
-        this.physics.add.collider(this.player.player, this.pubs, function(player) {
-            player.scene.player.hasFinishedLevel = true;
-            endGame(player.scene, true);
-        });
-        this.physics.add.collider(this.player.player, this.traps, function(player) {
-            player.scene.player.updateLife(false);
-            if (player.scene.player.life === 0) {
-                player.scene.player.isDead = true;
-                player.scene.player_death_audio.play();
-                endGame(player.scene, false);
-            };
-        });
-        this.physics.add.collider(this.player.player, this.cannons, null);
-        this.physics.add.collider(this.player.player, this.bullets, function(player, bullet) {
-            player.scene.player.updateLife(false);
-            bullet.destroy();
-            if (player.scene.player.life === 0) {
-                player.scene.player.isDead = true;
-                endGame(player.scene, false);
-            };
-        });
-        this.physics.add.collider(this.platforms, this.bullets, function(platform, bullet) {
-            bullet.destroy();
-        });
-        this.physics.add.collider(this.player.player, this.power_ups, function(player, power_up) {
-            power_up.name === "power_up_time" ? player.scene.time += 90 : player.scene.player.updateLife(true);
-            power_up.name === "power_up_time" ? player.scene.player_smoke_audio.play() : player.scene.player_drink_audio.play();
-            power_up.destroy();
-        });
-        this.physics.add.overlap(this.player.player, this.enemies, function(player, enemy) {
-            if (player.scene.player.isAttacking) {
-                this.isPlayerInvincible = true;
-                enemy.setName(enemy.name + "_dead_enemy");
-                enemy.anims.play(`${enemy.name}_hurt_anim`);
-                player.scene.enemy_death_audio.play();
-                setTimeout(() => {
-                    enemy.destroy();
-                    this.isPlayerInvincible = false;
-                }, 1000);
-            } else if (!this.isPlayerInvincible) {
-                player.scene.player.updateLife(false);
-                player.scene.player_hurt_audio.play();
-                if (player.scene.player.life === 0) {
-                    player.scene.player.isDead = true;
-                    player.scene.player_death_audio.play();
-                    endGame(player.scene, false);
-                };
-            };
-        });
+        createCollisions(this);
 
         this.time_interval = setInterval(() => {
             this.time -= 1;
