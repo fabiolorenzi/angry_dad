@@ -85,11 +85,13 @@ class Player extends Phaser.GameObjects.Sprite {
             if (cursors.space.isDown && this.playerIsTouchingDown) {
                 this.player.setVelocityY(-330);
                 this.isHurted ? this.player.anims.play("player_hurt_anim", true) : !this.isAttacking && this.player.anims.play("player_jump_anim", true);
+                !this.isHurted && this.player.scene.player_jump_audio.play();
             };
 
             if (cursors.up.isDown && !this.isHurted && !this.isAttacking) {
                 this.isAttacking = true;
                 this.isAttacking && this.player.anims.play("player_attack_anim", true);
+                this.isAttacking && this.player.scene.player_attack_audio.play();
                 setTimeout(() => {
                     this.isAttacking = false;
                     !this.playerIsTouchingDown && this.player.anims.play("player_idle_anim", true);
@@ -110,6 +112,7 @@ class Player extends Phaser.GameObjects.Sprite {
             } else if (!isPlus) {
                 this.life -= 1;
                 this.isHurted = true;
+                this.scene.player_hurt_audio.play();
                 setTimeout(() => this.isHurted = false, 1000);
                 this.life >= 0 && this.scene.life_value_ui.updateLifeUI(isPlus, this.scene.life_value.children.entries.length - 1);
             };

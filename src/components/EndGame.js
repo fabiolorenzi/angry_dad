@@ -4,6 +4,8 @@ function endGame(scene, hasWon) {
     scene.timer_value.ui.visible = false;
     scene.life_label.ui.visible = false;
 
+    hasWon ? scene.victory_audio.play() : scene.player_death_audio.play();
+
     clearInterval(scene.time_interval);
     clearInterval(scene.enemies_interval);
 

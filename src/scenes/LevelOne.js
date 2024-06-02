@@ -46,12 +46,29 @@ export class LevelOne extends Scene {
 
         this.time_interval;
         this.enemies_interval;
+
+        this.player_jump_audio;
+        this.player_attack_audio;
+        this.player_drink_audio;
+        this.player_smoke_audio;
+        this.player_hurt_audio;
+        this.player_death_audio;
+        this.enemy_death_audio;
+        this.victory_audio;
     }
 
     create() {
         const {width, height} = this.scale;
         this.background = this.add.tileSprite(512, 384, width, height, "background_levelOne").setScale(1);
         this.background_sound = this.sound.add("level_one_background");
+        this.player_jump_audio = this.sound.add("player_jump_audio");
+        this.player_attack_audio = this.sound.add("player_attack_audio");
+        this.player_drink_audio = this.sound.add("player_drink_audio");
+        this.player_smoke_audio = this.sound.add("player_smoke_audio");
+        this.player_hurt_audio = this.sound.add("player_hurt_audio");
+        this.player_death_audio = this.sound.add("player_death_audio");
+        this.enemy_death_audio = this.sound.add("enemy_death_audio");
+        this.victory_audio = this.sound.add("victory_audio");
         this.background_sound.play();
 
         this.floors.create(950, 830, "floor_levelOne");
@@ -99,6 +116,7 @@ export class LevelOne extends Scene {
             player.scene.player.updateLife(false);
             if (player.scene.player.life === 0) {
                 player.scene.player.isDead = true;
+                player.scene.player_death_audio.play();
                 endGame(player.scene, false);
             };
         });
@@ -116,19 +134,25 @@ export class LevelOne extends Scene {
         });
         this.physics.add.collider(this.player.player, this.power_ups, function(player, power_up) {
             power_up.name === "power_up_time" ? player.scene.time += 45 : player.scene.player.updateLife(true);
+            power_up.name === "power_up_time" ? player.scene.player_smoke_audio.play() : player.scene.player_drink_audio.play();
             power_up.destroy();
         });
         this.physics.add.overlap(this.player.player, this.enemies, function(player, enemy) {
             if (player.scene.player.isAttacking) {
                 this.isPlayerInvincible = true;
                 enemy.setName(enemy.name + "_dead_enemy");
-                setTimeout(() => this.isPlayerInvincible = false, 1100);
                 enemy.anims.play(`${enemy.name}_hurt_anim`);
-                setTimeout(() => enemy.destroy(), 1000);
+                player.scene.enemy_death_audio.play();
+                setTimeout(() => {
+                    enemy.destroy();
+                    this.isPlayerInvincible = false;
+                }, 1000);
             } else if (!this.isPlayerInvincible) {
                 player.scene.player.updateLife(false);
+                player.scene.player_hurt_audio.play();
                 if (player.scene.player.life === 0) {
                     player.scene.player.isDead = true;
+                    player.scene.player_death_audio.play();
                     endGame(player.scene, false);
                 };
             };
@@ -186,6 +210,14 @@ export class LevelOne extends Scene {
         this.load.spritesheet("enemy_two_run", "images/characters/enemy_two/enemy_two_run.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("enemy_two_hurt", "images/characters/enemy_two/enemy_two_hurt.png", {frameWidth: 32, frameHeight: 32});
         this.load.audio("level_one_background", "audio/level_one_ambience.mp3");
+        this.load.audio("player_jump_audio", "audio/player_jump.mp3");
+        this.load.audio("player_attack_audio", "audio/player_attack.mp3");
+        this.load.audio("player_drink_audio", "audio/player_drink.mp3");
+        this.load.audio("player_smoke_audio", "audio/player_smoke.mp3");
+        this.load.audio("player_hurt_audio", "audio/player_hurt.mp3");
+        this.load.audio("player_death_audio", "audio/player_death.mp3");
+        this.load.audio("enemy_death_audio", "audio/enemy_death.mp3");
+        this.load.audio("victory_audio", "audio/victory.mp3");
     };
 
     moveGroups(isPlus) {
