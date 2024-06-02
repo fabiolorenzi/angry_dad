@@ -21,8 +21,8 @@ const config = {
         }
     },
     scene: [
-        // Menu,
-        // LevelOne,
+        Menu,
+        LevelOne,
         LevelTwo
     ]
 };
