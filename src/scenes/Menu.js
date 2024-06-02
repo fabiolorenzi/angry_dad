@@ -36,6 +36,12 @@ export class Menu extends Scene {
             align: "center"
         }).setOrigin(0.5).setDepth(100);
 
+        let helpMenuButton = this.add.text(512, 400, "Help menu", {
+            fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",
+            stroke: "#000000", strokeThickness: 4,
+            align: "center"
+        }).setOrigin(0.5).setDepth(100);
+
         playLevelOneButton.setInteractive();
         playLevelOneButton.on("pointerdown", () => {
             this.background_sound.stop();
@@ -46,6 +52,12 @@ export class Menu extends Scene {
         playLevelTwoButton.on("pointerdown", () => {
             this.background_sound.stop();
             this.scene.start("LevelTwo");
+        });
+
+        helpMenuButton.setInteractive();
+        helpMenuButton.on("pointerdown", () => {
+            this.background_sound.stop();
+            this.scene.start("HelpMenu");
         });
     }
 }

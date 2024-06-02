@@ -1,6 +1,7 @@
 import { Menu } from "./scenes/Menu";
 import { LevelOne } from "./scenes/LevelOne";
 import { LevelTwo } from "./scenes/LevelTwo";
+import { HelpMenu } from "./scenes/HelpMenu";
 import { AUTO, Scale, Game } from "phaser";
 
 const config = {
@@ -23,7 +24,8 @@ const config = {
     scene: [
         Menu,
         LevelOne,
-        LevelTwo
+        LevelTwo,
+        HelpMenu
     ]
 };
 
