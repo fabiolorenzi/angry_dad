@@ -99,8 +99,6 @@ function createPowerUpsLevelOne(scene) {
     new PowerUp(scene, 8050, 60, true);
     new PowerUp(scene, 8500, 740, false);
     new PowerUp(scene, 10800, 740, true);
-
-    new PowerUp(scene, 1000, 740, false);
 };
 
 function createCannonsLevelOne(scene) {
@@ -150,8 +148,6 @@ function createTrapsLevelOne(target) {
     target.create(10600, 765, "trap");
     target.create(11000, 765, "trap");
     target.create(11300, 765, "trap");
-
-    target.create(800, 765, "trap");
 };
 
 export {

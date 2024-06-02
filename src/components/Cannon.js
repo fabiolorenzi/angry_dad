@@ -13,6 +13,7 @@ class Cannon {
     };
 
     startShooting() {
+        this.stopShooting();
         this.shootingInterval = setInterval(() => {
             this.scene.bullets.create(this.body.x, this.body.y - 5, "bullet");
         }, 5000);
