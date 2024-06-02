@@ -1,4 +1,5 @@
 import { Scene } from "phaser";
+import { createSounds } from "../components/Audio";
 import { removeBlocks } from "../components/Builder";
 import { createCollisions } from "../components/Collisions";
 import { endGame } from "../components/EndGame";
@@ -62,15 +63,7 @@ export class LevelOne extends Scene {
     create() {
         const {width, height} = this.scale;
         this.background = this.add.tileSprite(512, 384, width, height, "background_levelOne").setScale(1);
-        this.background_sound = this.sound.add("level_one_background", {volume: 0.7});
-        this.player_jump_audio = this.sound.add("player_jump_audio");
-        this.player_attack_audio = this.sound.add("player_attack_audio");
-        this.player_drink_audio = this.sound.add("player_drink_audio");
-        this.player_smoke_audio = this.sound.add("player_smoke_audio");
-        this.player_hurt_audio = this.sound.add("player_hurt_audio");
-        this.player_death_audio = this.sound.add("player_death_audio", {volume: 0.7});
-        this.enemy_death_audio = this.sound.add("enemy_death_audio");
-        this.victory_audio = this.sound.add("victory_audio");
+        createSounds(this);
         this.background_sound.play();
 
         this.floors.create(950, 830, "floor");
