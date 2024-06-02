@@ -161,27 +161,27 @@ export class LevelOne extends Scene {
         this.load.setPath("assets");
 
         this.load.addFile(new WebFontFile(this.load, "Permanent Marker"));
-        this.load.image("background_levelOne", "background_at/Postapocalypce1/Bright/postapocalypse1.png");
-        this.load.image("floor_levelOne", "background_at/Postapocalypce1/Bright/road_cropped.png");
-        this.load.image("platform", "simple_platformer_kit/2 Locations/Tiles/Tile_10.png");
-        this.load.image("pub", "tavern.png");
-        this.load.image("trap", "pirate_stuff/Transperent/Icon28.png");
-        this.load.image("cannon", "pirate_stuff/Transperent/Icon22.png");
-        this.load.image("bullet", "pirate_stuff/Transperent/Icon42.png");
-        this.load.image("power_up_time", "cigarette.png");
-        this.load.image("power_up_life", "pirate_stuff/Transperent/Icon48.png");
-        this.heart = this.load.image("heart", "hearts/heart.png");
-        this.load.spritesheet("player_idle", "simple_platformer_kit/1 Main Characters/1/Idle.png", {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet("player_run", "simple_platformer_kit/1 Main Characters/1/Run.png", {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet("player_jump", "simple_platformer_kit/1 Main Characters/1/Jump.png", {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet("player_hurt", "simple_platformer_kit/1 Main Characters/1/Hit.png", {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet("player_attack", "simple_platformer_kit/1 Main Characters/1/Double_Jump.png", {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet("enemy_one_idle", "simple_platformer_kit/1 Main Characters/2/Idle.png", {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet("enemy_one_run", "simple_platformer_kit/1 Main Characters/2/Run.png", {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet("enemy_one_hurt", "simple_platformer_kit/1 Main Characters/2/Hit.png", {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet("enemy_two_idle", "simple_platformer_kit/1 Main Characters/3/Idle.png", {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet("enemy_two_run", "simple_platformer_kit/1 Main Characters/3/Run.png", {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet("enemy_two_hurt", "simple_platformer_kit/1 Main Characters/3/Hit.png", {frameWidth: 32, frameHeight: 32});
+        this.load.image("background_levelOne", "images/backgrounds/level_one_background.png");
+        this.load.image("floor_levelOne", "images/buildings/road.png");
+        this.load.image("platform", "images/others/platform.png");
+        this.load.image("pub", "images/buildings/tavern.png");
+        this.load.image("trap", "images/others/trap.png");
+        this.load.image("cannon", "images/others/cannon.png");
+        this.load.image("bullet", "images/others/cannon.png");
+        this.load.image("power_up_time", "images/others/cigarette.png");
+        this.load.image("power_up_life", "images/others/rum.png");
+        this.heart = this.load.image("heart", "images/others/heart.png");
+        this.load.spritesheet("player_idle", "images/characters/player/player_idle.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("player_run", "images/characters/player/player_run.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("player_jump", "images/characters/player/player_jump.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("player_hurt", "images/characters/player/player_hurt.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("player_attack", "images/characters/player/player_attack.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("enemy_one_idle", "images/characters/enemy_one/enemy_one_idle.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("enemy_one_run", "images/characters/enemy_one/enemy_one_run.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("enemy_one_hurt", "images/characters/enemy_one/enemy_one_hurt.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("enemy_two_idle", "images/characters/enemy_two/enemy_two_idle.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("enemy_two_run", "images/characters/enemy_two/enemy_two_run.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("enemy_two_hurt", "images/characters/enemy_two/enemy_two_hurt.png", {frameWidth: 32, frameHeight: 32});
     };
 
     moveGroups(isPlus) {

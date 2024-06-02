@@ -12,7 +12,7 @@ export class Menu extends Scene {
     preload() {
         this.load.setPath("assets");
         this.load.addFile(new WebFontFile(this.load, "Permanent Marker"));
-        this.load.image("background", "background_at/Postapocalypce2/Pale/postapocalypse2.png");
+        this.load.image("background", "images/backgrounds/menu_background.png");
     }
 
     create() {
