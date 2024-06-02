@@ -13,6 +13,7 @@ import LifeUI from "../components/LifeUI";
 import { addFiles } from "../components/Loader";
 import Player from "../components/Player";
 import { formatTime } from "../components/Timer";
+import { devHelper } from "../components/DevHelper";
 
 export class LevelOne extends Scene {
     constructor () {
@@ -81,18 +82,9 @@ export class LevelOne extends Scene {
 
         this.direction_left = true;
 
-        //-----------------------------------------------------------------------------------------------------------------------------------------------------------
-        // This code below is just for dev---------------------------------------------------------------------------------------------------------------------------
-        const tar = 0;
-        this.background.tilePositionX += tar;
-        this.platforms.children.entries.forEach(plat => plat.x -= tar);
-        this.pubs.children.entries.forEach(b => b.x -= tar);
-        this.traps.children.entries.forEach(t => t.x -= tar);
-        this.cannons.children.entries.forEach(c => c.x -= tar);
-        this.power_ups.children.entries.forEach(p => p.x -= tar);
-        this.enemies.children.entries.forEach(e => e.x -= tar);
-        //-----------------------------------------------------------------------------------------------------------------------------------------------------------
-        //-----------------------------------------------------------------------------------------------------------------------------------------------------------
+        // This is to help the development
+        // Set the 0 to the new x position to go directly there
+        devHelper(this, 0);
 
         this.player = this.add.existing(new Player(this, 512, 650));
         this.camera = this.cameras.main;
