@@ -19,7 +19,7 @@ export class Menu extends Scene {
 
     create() {
         this.add.image(512, 384, "background");
-        this.background_sound = this.sound.add("background");
+        this.background_sound = this.sound.add("background", {volume: 0.5});
         this.background_sound.play();
 
         this.title = new GameUI(this, 512, 100, "Angry dad", 64, "#ff0000");

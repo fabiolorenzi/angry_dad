@@ -60,7 +60,7 @@ export class LevelOne extends Scene {
     create() {
         const {width, height} = this.scale;
         this.background = this.add.tileSprite(512, 384, width, height, "background_levelOne").setScale(1);
-        this.background_sound = this.sound.add("level_one_background");
+        this.background_sound = this.sound.add("level_one_background", {volume: 0.7});
         this.player_jump_audio = this.sound.add("player_jump_audio");
         this.player_attack_audio = this.sound.add("player_attack_audio");
         this.player_drink_audio = this.sound.add("player_drink_audio");
