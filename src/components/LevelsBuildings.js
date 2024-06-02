@@ -179,10 +179,11 @@ function createPlatformsLevelTwo(plats) {
     createWall(plats, 7800, 760, 20, true);
     createWall(plats, 7820, 380, 10, false);
     createWall(plats, 8020, 380, 8, true);
-    createWall(plats, 8040, 240, 30, false);
+    createWall(plats, 8040, 240, 16, false);
+    createWall(plats, 8600, 240, 4, false);
     createWall(plats, 8760, 620, 34, true);
-    createWall(plats, 8160, 380, 10, false);
-    createWall(plats, 8520, 380, 12, false);
+    createWall(plats, 8160, 380, 6, false);
+    createWall(plats, 8560, 380, 10, false);
     createWall(plats, 7820, 520, 27, false);
     createWall(plats, 8520, 520, 8, false);
     createWall(plats, 8340, 760, 12, true);
@@ -226,16 +227,14 @@ function createPlatformsLevelTwo(plats) {
 };
 
 function createPowerUpsLevelTwo(scene) {
-    // new PowerUp(scene, 1840, 740, true);
-    // new PowerUp(scene, 2960, 130, false);
-    // new PowerUp(scene, 3500, 740, true);
-    // new PowerUp(scene, 5320, 240, false);
-    // new PowerUp(scene, 5660, 240, true);
-    // new PowerUp(scene, 7700, 120, true);
-    // new PowerUp(scene, 8000, 60, false);
-    // new PowerUp(scene, 8050, 60, true);
-    // new PowerUp(scene, 8500, 740, false);
-    // new PowerUp(scene, 10800, 740, true);
+    new PowerUp(scene, 1840, 740, true);
+    new PowerUp(scene, 3460, 740, false);
+    new PowerUp(scene, 4700, 440, true);
+    new PowerUp(scene, 4860, 740, false);
+    new PowerUp(scene, 6700, 240, true);
+    new PowerUp(scene, 7500, 440, false);
+    new PowerUp(scene, 8630, 210, true);
+    new PowerUp(scene, 8600, 740, false);
 };
 
 function createCannonsLevelTwo(scene) {
