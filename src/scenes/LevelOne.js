@@ -66,7 +66,7 @@ export class LevelOne extends Scene {
         this.player_drink_audio = this.sound.add("player_drink_audio");
         this.player_smoke_audio = this.sound.add("player_smoke_audio");
         this.player_hurt_audio = this.sound.add("player_hurt_audio");
-        this.player_death_audio = this.sound.add("player_death_audio");
+        this.player_death_audio = this.sound.add("player_death_audio", {volume: 0.7});
         this.enemy_death_audio = this.sound.add("enemy_death_audio");
         this.victory_audio = this.sound.add("victory_audio");
         this.background_sound.play();
