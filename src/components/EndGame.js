@@ -1,4 +1,4 @@
-function endGame(scene, hasWon, level = "") {
+function endGame(scene, hasWon) {
     clearInterval(scene.interval);
     scene.timer_label.ui.visible = false;
     scene.timer_value.ui.visible = false;
@@ -18,27 +18,13 @@ function endGame(scene, hasWon, level = "") {
         align: "center"
     }).setOrigin(0.5).setDepth(100);
 
-    let nextButton;
-    if (hasWon) {
-        nextButton = scene.add.text(512, 300, "Next Level", {
-            fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",
-            stroke: "#000000", strokeThickness: 4,
-            align: "center"
-        }).setOrigin(0.5).setDepth(100);
-
-        nextButton.setInteractive();
-        nextButton.on("pointerdown", () => {
-            scene.scene.start(level === "LevelOne" ? "LevelTwo" : "LevelOne");
-        });
-    };
-
-    let restartButton = scene.add.text(512, hasWon ? 350 : 300, "Restart", {
+    let restartButton = scene.add.text(512, 300, "Restart", {
         fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",
         stroke: "#000000", strokeThickness: 4,
         align: "center"
     }).setOrigin(0.5).setDepth(100);
 
-    let menuButton = scene.add.text(512, hasWon ? 400 : 350, "Menu", {
+    let menuButton = scene.add.text(512, 350, "Menu", {
         fontFamily: "Permanent Marker", fontSize: 44, color: "#ffffff",
         stroke: "#000000", strokeThickness: 4,
         align: "center"
@@ -61,7 +47,7 @@ function endGame(scene, hasWon, level = "") {
     menuButton.setInteractive();
     menuButton.on("pointerdown", () => {
         scene.background_sound.stop();
-        scene.scene.start("Menu");
+        window.location.reload();
     });
 };
 

@@ -1,6 +1,6 @@
 import { endGame } from "./EndGame";
 
-function createCollisions(scene, level) {
+function createCollisions(scene) {
     scene.physics.add.collider(scene.player.player, scene.floors, null);
     scene.physics.add.collider(scene.player.player, scene.platforms, null);
     scene.physics.add.collider(scene.player.player, scene.pubs, function(player) {
@@ -12,7 +12,7 @@ function createCollisions(scene, level) {
         if (player.scene.player.life === 0) {
             player.scene.player.isDead = true;
             player.scene.player_death_audio.play();
-            endGame(player.scene, false, level);
+            endGame(player.scene, false);
         };
     });
     scene.physics.add.collider(scene.player.player, scene.cannons, null);
